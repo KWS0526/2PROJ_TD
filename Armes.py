@@ -1,9 +1,7 @@
 import time
-
 import pygame
 import math
 from Projectille import Projectile
-
 
 class Arme:
     all_projectiles = pygame.sprite.Group()

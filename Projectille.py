@@ -1,11 +1,8 @@
 import math
-
 import pygame
 from pygame.sprite import Sprite
 
-
 class Projectile(Sprite):
-
     def __init__(self, start_position_x, start_position_y, target_position, image):
         super().__init__()
         self.start_position_x = start_position_x

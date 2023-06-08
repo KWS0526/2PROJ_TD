@@ -1,6 +1,5 @@
 import pygame
 
-
 class MenuGame:
     def __init__(self, game_instance):
         self.game_instance = game_instance
@@ -23,8 +22,6 @@ class MenuGame:
         # On lui indique le niveau de diffultite du map
         game.text["text.difficile"].afficher_texte(game.screen)
 
-
-
         # On parcourt les evenements
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -44,5 +41,3 @@ class MenuGame:
                     game.etat = "jeu_map3"
 
         pygame.display.flip()
-
-

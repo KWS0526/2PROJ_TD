@@ -1,15 +1,13 @@
 import pygame
 
-
 def Quitt():
     return False
-
 
 class Button:
     # le constrcteur pour creer un bouton Menu
     def __init__(self, x, y, image_path):
         self.image = pygame.image.load(image_path)
-        self.image = pygame.transform.scale(self.image, (150, 100)).convert()
+        self.image = pygame.transform.scale(self.image, (200, 100)).convert()
         self.rect = self.image.get_rect(center=(x, y))
         self.start = False
         self.menu_optons = pygame.image.load(image_path)
@@ -29,8 +27,7 @@ class Button:
     @classmethod
     def option_play_Musique(cls, mes_button, screen, sound):
         # On remplace le bouton par un nouveau
-        new_button = cls(620, 100,
-                         "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Play col_Square Button.png")
+        new_button = cls(620, 100,"Assets/Buttons/Play_icon.png")
         mes_button["button_SousMenuStopMusique"] = new_button
         screen.blit(mes_button["button_SousMenuStopMusique"].image, mes_button["button_SousMenuStopMusique"].rect)
         sound.play_sound()
@@ -38,30 +35,24 @@ class Button:
     @classmethod
     def option_stop_audio(cls, mes_button, screen, sound):
         # On remet le boutton initial
-        new_button = cls(620, 250,
-                         "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Pause col_Square Button.png")
+        new_button = cls(620, 250,"Assets/Buttons/Pause_icon.png")
         mes_button["button_SousMenuStopAudio"] = new_button
-        screen.blit(mes_button["button_SousMenuStopAudio"].image,
-                    mes_button["button_SousMenuStopAudio"].rect)
+        screen.blit(mes_button["button_SousMenuStopAudio"].image,mes_button["button_SousMenuStopAudio"].rect)
         sound.stop_sound()
 
     @classmethod
     def option_play_audio(cls, mes_button, screen):
         # On remplace le bouton par un nouveau
-        new_button = cls(620, 250,
-                         "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Play col_Square Button.png")
+        new_button = cls(620, 250,"Assets/Buttons/Play_icon.png")
         mes_button["button_SousMenuStopAudio"] = new_button
-        screen.blit(mes_button["button_SousMenuStopAudio"].image,
-                    mes_button["button_SousMenuStopAudio"].rect)
+        screen.blit(mes_button["button_SousMenuStopAudio"].image,mes_button["button_SousMenuStopAudio"].rect)
 
     @classmethod
     def option_stop_Musique(cls, mes_button, screen, sound):
         # On remet le boutton initial
-        new_button = cls(620, 100,
-                         "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Pause col_Square Button.png")
+        new_button = cls(620, 100,"Assets/Buttons/Pause_icon.png")
         mes_button["button_SousMenuStopMusique"] = new_button
-        screen.blit(mes_button["button_SousMenuStopMusique"].image,
-                    mes_button["button_SousMenuStopMusique"].rect)
+        screen.blit(mes_button["button_SousMenuStopMusique"].image,mes_button["button_SousMenuStopMusique"].rect)
         sound.stop_sound()
 
     @classmethod
@@ -142,4 +133,3 @@ class Button:
                         Button.option_stop_audio(mes_button, screen, sound)
 
         pygame.display.flip()
-

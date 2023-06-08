@@ -1,8 +1,6 @@
 import math
-
 import pygame
 import time
-
 from MenuMap import MenuGame
 from Projectille import Projectile
 from Sound import Sound
@@ -13,7 +11,6 @@ from Armes import Arme
 from Cartes import Carte
 from AfficheurTexte import AfficheurTexte
 from word import *
-
 
 class Map:
     def __init__(self):
@@ -36,55 +33,43 @@ class Map:
             (self.window_width, self.window_height))
         # charger un image de fond
         self.background = pygame.image.load("Assets/sable.jpg")
-        self.background = pygame.transform.scale(
-            self.background, (self.window_width, self.window_height))
-        # definir l'image de faire de notre Menu
-
-        self.Fond_Menu = pygame.image.load("Assets/Background.png")
+        self.background = pygame.transform.scale(self.background, (self.window_width, self.window_height))
+        self.Fond_Menu = pygame.image.load("Assets/BackTest.png")
+        self.Fond_Map = pygame.image.load("Assets/Cartes/map_1.png")
         self.Fond_Map = pygame.image.load("Assets/Cartes/map_1.png")
         # instanciation de mon menu
         self.mes_button = {
-            "button_Menu": Button(500, 100,
-                                  "Assets/Menu Buttons/Large Buttons/Colored Large Buttons/Menu  col_Button.png"),
-            "button_NewGame": Button(500, 220,
-                                     "Assets/Menu Buttons/Large Buttons/Colored Large Buttons/New Game  col_Button.png"),
-            "button_Options": Button(500, 340,
-                                     "Assets/Menu Buttons/Large Buttons/Colored Large Buttons/Options  col_Button.png"),
-            "button_Quitt": Button(500, 460,
-                                   "Assets/Menu Buttons/Large Buttons/Colored Large Buttons/Quit  col_Button.png"),
-            "button_SousMenuMusique": Button(400, 100,
-                                             "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Music col_Square Button.png"),
-            "button_SousMenuStopMusique": Button(620, 100,
-                                                 "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/X col_Square Button.png"),
-            "button_SousMenuAudio": Button(400, 250,
-                                           "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Audio col_Square Button.png"),
-            "button_SousMenuStopAudio": Button(620, 250,
-                                               "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/X col_Square Button.png"),
-            "button_Retour": Button(520, 420,
-                                    "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Back col_Square Button.png")
+            "button_Menu": Button(500, 100,"Assets/logo2-removebg-preview.png"),
+            "button_NewGame": Button(380, 270,"Assets/Buttons/New_Game.png"),
+            "button_Options": Button(620, 270,"Assets/Buttons/Options.png"),
+            "button_Quitt": Button(500, 400,"Assets/Buttons/Quit.png"),
+            "button_SousMenuMusique": Button(400, 100,"Assets/Buttons/Music_note_icon.png"),
+            "button_SousMenuStopMusique": Button(620, 100,"Assets/Buttons/Decline.png"),
+            "button_SousMenuAudio": Button(400, 250,"Assets/Buttons/Music_note_icon.png"),
+            "button_SousMenuStopAudio": Button(620, 250,"Assets/Buttons/Decline.png"),
+            "button_Retour": Button(520, 420,"Assets/Buttons/Back.png")
         }
         self.cartes = {
-            "carte_1": Carte(170, 250, "Assets/Cartes/map_1.png"),
-            "carte_2": Carte(480, 250, "Assets/Cartes/map_2.png"),
-            "carte_3": Carte(790, 250, "Assets/Cartes/map_3.png"),
+            "carte_1": Carte(170, 270, "Assets/Cartes/map_1.png"),
+            "carte_2": Carte(480, 270, "Assets/Cartes/map_2.png"),
+            "carte_3": Carte(790, 270, "Assets/Cartes/map_3.png"),
             "retour": Carte(900, 300, "Assets/Armes/button.jpg")
         }
         self.text = {
-            "text_easy": AfficheurTexte("Facile", 150, 360, (128, 128, 128)),
-            "text_medium": AfficheurTexte("Moyen", 430, 360, (128, 128, 128)),
-            "text.difficile": AfficheurTexte("Difficile", 750, 360, (128, 128, 128)),
+            "text_easy": AfficheurTexte("Facile", 150, 140, (123,104,238)),
+            "text_medium": AfficheurTexte("Moyen", 430, 140, (123,104,238)),
+            "text.difficile": AfficheurTexte("Difficile", 750, 140, (123,104,238)),
             "game_over": AfficheurTexte("Game Over", 400, 400, (199, 0, 57))
         }
         self.etat_button_options = "normal"
         self.etat = "menu"
-        # instancier musique
         self.sound = Sound("Musique/1.mp3")
         self.vie_joueur = Vie()
         # self.armes = {
         #    "arme_1": Arme(715, 40, "Assets/Armes/arme.png", "arme_1")
         # }
         self.mes_armess = [
-            Arme(715, 40, "Assets/Armes/arme.png", "arme_1"),
+            Arme(715, 40, "Assets/Armes/armes-removebg-preview.png", "arme_1"),
             Arme(820, 40, "Assets/Armes/Basic2 howitzer moving_waifu2x_photo_noise3_scale.png", "arme_2")
             # Ajoutez plus d'armes disponibles avec leurs positions
         ]
@@ -150,15 +135,14 @@ class Map:
                         if world[row][col] == 1:
                             # Placer l'arme à l'emplacement valide
                             if self.type_arme == "arme_1":
-                                armes = Arme(x, y, "Assets/Armes/arme.png", "arme_1")
+                                armes = Arme(x, y, "Assets/Armes/armes-removebg-preview.png", "arme_1")
                             elif self.type_arme == "arme_2":
-                                armes = Arme(x, y, "Assets/Armes/Basic2 howitzer moving_waifu2x_photo_noise3_scale.png",
-                                             "arme_2")
+                                armes = Arme(x, y, "Assets/Armes/Basic2 howitzer moving_waifu2x_photo_noise3_scale.png","arme_2")
                             elif self.type_arme == "arme_3":
                                 armes = Arme(x, y, "Assets/Armes/arme_3.png", "arme_3")
                             else:
-
                                 return
+                            
                         if armes is not None:
                             self.towers.append(armes)
                             # Ajoutr la dernière arme ajoutée à mes_armes
@@ -167,6 +151,7 @@ class Map:
                             self.towers[-1].acheter(self)
                             armes.is_placed = True
                             self.arme_placee_recente = True
+
                             if self.argent > armes.cout_arme < self.prix_arme_definie:
                                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
                                 self.initial_image_clicked = False

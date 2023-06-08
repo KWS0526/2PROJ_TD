@@ -1,6 +1,5 @@
 import pygame
 
-
 class Monstre(pygame.sprite.Sprite):
     def __init__(self, positionX, positionY):
         super().__init__()

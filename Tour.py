@@ -21,7 +21,6 @@ WHITE = (255, 255, 255)
 BACKGROUND_IMG = pygame.image.load("Assets/Background.png")
 TOWER_IMG = pygame.image.load("Assets/alien.png")
 
-
 # Classe pour les tours
 class Tower:
     def __init__(self, x, y):
@@ -67,9 +66,7 @@ def main():
                         placing_tower = True
 
         pygame.display.update()
-
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()

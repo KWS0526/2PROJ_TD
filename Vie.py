@@ -1,9 +1,7 @@
 import sys
 import time
-
 import pygame
 from AfficheurTexte import AfficheurTexte
-
 
 class Vie:
     def __init__(self):
