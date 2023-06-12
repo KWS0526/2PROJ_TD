@@ -27,9 +27,8 @@ class Map:
         # Définir la taille de la matrice et des carrés
         self.matrix_width = len(self.word[0])
         self.matrix_height = len(self.word)
-        self.fenetre = pygame.display.set_mode((self.matrix_width, self.matrix_height))
 
-        # la taille de chaque cellule dans le fenetre qu'on met  en pixels
+        # la taille de chaque cellule dans le screen qu'on met  en pixels
         self.pixels = 40
         # Définir la taille de la fenêtre en fonction de notre matrice
         self.window_width = self.matrix_width * self.pixels
@@ -291,7 +290,7 @@ class Map:
 
         while self.running:
             # On affiche notre Menu et on attend l'action de l'utilisateur pour faire des actions
-            # Mais le jeu est demarer avec l'isntance Menu et les changements des etats va permettre d'afficher l'autre fenetre.
+            # Mais le jeu est demarer avec l'isntance Menu et les changements des etats va permettre d'afficher l'autre screen.
             if self.etat == "menu":
                 # on charge notre menu
                 self.screen.blit(self.Fond_Menu, (0, 0))
@@ -309,39 +308,38 @@ class Map:
 
             # Map 1
             elif self.etat == "jeu_map1":
-                # self.maps(165, -78, 165, -69, word, 1)
-                # self.verifier_le_click_sur_quel_image(word)
-                # # Button.MenuGame(self.mes_button, self.screen, self)
-                # self.draw()
-                # print(self.argent)
-                # self.vie_joueur.afficher_vie_joueur(self.screen)
-                # pygame.display.update()
+                self.maps(165, -78, 165, -69, word, 1)
+                self.verifier_le_click_sur_quel_image(word)
+                # Button.MenuGame(self.mes_button, self.screen, self)
+                self.draw()
+                print(self.argent)
+                self.vie_joueur.afficher_vie_joueur(self.screen)
+                pygame.display.update()
 
-                #-----------------------------
                 #--------------------------------------------------
 
-                self.deplacer()
-                self.positions_visitees.append(self.pos_monstre)
+                # self.deplacer()
+                # self.positions_visitees.append(self.pos_monstre)
 
-                for i in range(len(self.terrain)):
-                    for j in range(len(self.terrain[0])):
+                # for i in range(len(self.terrain)):
+                #     for j in range(len(self.terrain[0])):
 
-                        if self.terrain[i][j] == 0:
-                            rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
-                            self.fenetre.blit(self.image_chemin, rect)
+                #         if self.terrain[i][j] == 0:
+                #             rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
+                #             self.screen.blit(self.image_chemin, rect)
                             
-                        elif self.terrain[i][j] == 1:
-                            rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
-                            self.fenetre.blit(self.image_mur, rect)
+                #         elif self.terrain[i][j] == 1:
+                #             rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
+                #             self.screen.blit(self.image_mur, rect)
 
-                        elif self.terrain[i][j] == 2:
-                            rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
-                            self.fenetre.blit(self.image_menu, rect) 
+                #         elif self.terrain[i][j] == 2:
+                #             rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
+                #             self.screen.blit(self.image_menu, rect) 
 
-                self.fenetre.blit(self.image_monstre, (self.pos_monstre[1] * self.pixels, self.pos_monstre[0] * self.pixels))
+                # self.screen.blit(self.image_monstre, (self.pos_monstre[1] * self.pixels, self.pos_monstre[0] * self.pixels))
 
-                pygame.display.update()
-                self.horloge.tick(self.vitesse_monstre)
+                # pygame.display.update()
+                # self.horloge.tick(self.vitesse_monstre)
 
             # Map 2
             elif self.etat == "jeu_map2":
