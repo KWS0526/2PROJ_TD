@@ -27,7 +27,7 @@ class Map:
         # Définir la taille de la matrice et des carrés
         self.matrix_width = len(self.word[0])
         self.matrix_height = len(self.word)
-      #  self.fenetre = pygame.display.set_mode((self.matrix_width, self.matrix_height))
+        self.fenetre = pygame.display.set_mode((self.matrix_width, self.matrix_height))
 
         # la taille de chaque cellule dans le fenetre qu'on met  en pixels
         self.pixels = 40
@@ -47,7 +47,7 @@ class Map:
         # instanciation de mon menu
         self.mes_button = {
             "button_Menu": Button(500, 100,"Assets/logo2-removebg-preview.png"),
-            "button_NewGame": Button(380, 270,"Assets/Buttons/New_game.png"),
+            "button_NewGame": Button(380, 270,"Assets/Buttons/New_Game.png"),
             "button_Options": Button(620, 270,"Assets/Buttons/Options.png"),
             "button_Quitt": Button(500, 400,"Assets/Buttons/Quit.png"),
             "button_SousMenuMusique": Button(400, 100,"Assets/Buttons/Music_note_icon.png"),
@@ -328,17 +328,17 @@ class Map:
 
                         if self.terrain[i][j] == 0:
                             rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
-                            self.screen.blit(self.image_chemin, rect)
+                            self.fenetre.blit(self.image_chemin, rect)
                             
                         elif self.terrain[i][j] == 1:
                             rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
-                            self.screen.blit(self.image_mur, rect)
+                            self.fenetre.blit(self.image_mur, rect)
 
                         elif self.terrain[i][j] == 2:
                             rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
-                            self.screen.blit(self.image_menu, rect)
+                            self.fenetre.blit(self.image_menu, rect) 
 
-                self.screen.blit(self.image_monstre, (self.pos_monstre[1] * self.pixels, self.pos_monstre[0] * self.pixels))
+                self.fenetre.blit(self.image_monstre, (self.pos_monstre[1] * self.pixels, self.pos_monstre[0] * self.pixels))
 
                 pygame.display.update()
                 self.horloge.tick(self.vitesse_monstre)
