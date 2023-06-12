@@ -3,9 +3,8 @@ import pygame
 class Monstre(pygame.sprite.Sprite):
     def __init__(self, positionX, positionY):
         super().__init__()
-        self.image_monstre = pygame.image.load("Assets/alien.png").convert_alpha()
-        self.image_monstre = pygame.transform.scale(
-            self.image_monstre, (30, 30))
+        self.image_monstre = pygame.image.load("Assets/Monsters/Turtle_monster.png").convert_alpha()
+        self.image_monstre = pygame.transform.scale(self.image_monstre, (30, 30))
         self.positionX = positionX
         self.positionY = positionY
         self.rect = self.image_monstre.get_rect(center=(positionX, positionY))
@@ -77,19 +76,16 @@ class Monstre(pygame.sprite.Sprite):
 
     def draw_monstre_map(self, screen, pixels, word):
         screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
-        if self.positionX - 1 >= 0 and self.est_position_valide([self.positionX - 1, self.positionY], word) and [
-            self.positionX - 1, self.positionY] not in self.positions_visitees:
+        if self.positionX - 1 >= 0 and self.est_position_valide([self.positionX - 1, self.positionY], word) and [self.positionX - 1, self.positionY] not in self.positions_visitees:
             self.positionX -= self.vitesse  # Déplacer vers le haut
-        elif self.positionX + 1 < len(word) and self.est_position_valide([self.positionX + 1, self.positionY],
-                                                                         word) and [self.positionX + 1,
-                                                                                    self.positionY] not in self.positions_visitees:
+
+        elif self.positionX + 1 < len(word) and self.est_position_valide([self.positionX + 1, self.positionY], word) and [self.positionX + 1,self.positionY] not in self.positions_visitees:
             self.positionX += self.vitesse  # Déplacer vers le bas
-        elif self.positionY + 1 < len(word[0]) and self.est_position_valide([self.positionX, self.positionY + 1],
-                                                                            word) and [self.positionX,
-                                                                                       self.positionY + 1] not in self.positions_visitees:
+
+        elif self.positionY + 1 < len(word[0]) and self.est_position_valide([self.positionX, self.positionY + 1], word) and [self.positionX, self.positionY + 1] not in self.positions_visitees:
             self.positionY += self.vitesse  # Déplacer vers la droite
-        elif self.positionY - 1 >= 0 and self.est_position_valide([self.positionX, self.positionY - 1], word) and [
-            self.positionX, self.positionY - 1] not in self.positions_visitees:
+            
+        elif self.positionY - 1 >= 0 and self.est_position_valide([self.positionX, self.positionY - 1], word) and [self.positionX, self.positionY - 1] not in self.positions_visitees:
             self.positionY -= self.vitesse  # Déplacer vers la gauche
 
         self.positions_visitees.append([self.positionX, self.positionY])
