@@ -1,14 +1,16 @@
 import time
+
 import pygame
 import math
 from Projectille import Projectile
 
+
 class Arme:
     all_projectiles = pygame.sprite.Group()
     last_shot_time = 0
-    shot_delay = 0.1  # Délai en secondes entre chaque lancement de projectile
+    shot_delay = 0  # Délai en secondes entre chaque lancement de projectile
     arme_en_tir = True
-    projectile_delay = 0.3
+    projectile_delay = 0.4
 
     def __init__(self, position_x, position_y, image, types):
 
@@ -91,6 +93,7 @@ class Arme:
             if distance <= distance_min and distance <= champ_vision:
                 cls.lancer_projectiles(arme.position_x, arme.position_y, monster_position)
 
+
     @classmethod
     def lancer_projectiles(cls, position_x, position_y, target_position):
         current_time = time.time()
@@ -104,9 +107,3 @@ class Arme:
     def lancer_projectiless(cls, position_x, position_y, target_position):
         projectile = Projectile(position_x + 25, position_y - 3, target_position)
         cls.all_projectiles.add(projectile)
-
-    @classmethod
-    def detecter_collision_projectile_monstre(cls, projectile, monstre):
-        print("Vérification de collision entre projectile et monstre")
-        if projectile.rect.colliderect(monstre.rect):
-            print("Le projectile a touché le monstre!")

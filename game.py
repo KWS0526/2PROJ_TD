@@ -1,6 +1,8 @@
 import math
+
 import pygame
 import time
+
 from MenuMap import MenuGame
 from Projectille import Projectile
 from Sound import Sound
@@ -11,6 +13,7 @@ from Armes import Arme
 from Cartes import Carte
 from AfficheurTexte import AfficheurTexte
 from word import *
+
 
 class Map:
     def __init__(self):
@@ -24,62 +27,86 @@ class Map:
         # Définir la taille de la matrice et des carrés
         self.matrix_width = len(self.word[0])
         self.matrix_height = len(self.word)
-        self.fenetre = pygame.display.set_mode((self.matrix_width, self.matrix_height))
         # la taille de chaque cellule dans le fenetre qu'on met  en pixels
         self.pixels = 40
         # Définir la taille de la fenêtre en fonction de notre matrice
         self.window_width = self.matrix_width * self.pixels
         self.window_height = self.matrix_height * self.pixels
-        self.screen = pygame.display.set_mode((self.window_width, self.window_height))
+        self.screen = pygame.display.set_mode(
+            (self.window_width, self.window_height))
         # charger un image de fond
         self.background = pygame.image.load("Assets/sable.jpg")
-        self.background = pygame.transform.scale(self.background, (self.window_width, self.window_height))
-        self.Fond_Menu = pygame.image.load("Assets/BackTest.png")
-        self.Fond_Map = pygame.image.load("Assets/Cartes/map_1.png")
+        self.background = pygame.transform.scale(
+            self.background, (self.window_width, self.window_height))
+        # definir l'image de faire de notre Menu
+
+        self.Fond_Menu = pygame.image.load("Assets/Background.png")
         self.Fond_Map = pygame.image.load("Assets/Cartes/map_1.png")
         # instanciation de mon menu
         self.mes_button = {
-            "button_Menu": Button(500, 100,"Assets/logo2-removebg-preview.png"),
-            "button_NewGame": Button(380, 270,"Assets/Buttons/New_Game.png"),
-            "button_Options": Button(620, 270,"Assets/Buttons/Options.png"),
-            "button_Quitt": Button(500, 400,"Assets/Buttons/Quit.png"),
-            "button_SousMenuMusique": Button(400, 100,"Assets/Buttons/Music_note_icon.png"),
-            "button_SousMenuStopMusique": Button(620, 100,"Assets/Buttons/Decline.png"),
-            "button_SousMenuAudio": Button(400, 250,"Assets/Buttons/Music_note_icon.png"),
-            "button_SousMenuStopAudio": Button(620, 250,"Assets/Buttons/Decline.png"),
-            "button_Retour": Button(520, 420,"Assets/Buttons/Back.png")
+            "button_Menu": Button(500, 100,
+                                  "Assets/Menu Buttons/Large Buttons/Colored Large Buttons/Menu  col_Button.png"),
+            "button_NewGame": Button(500, 220,
+                                     "Assets/Menu Buttons/Large Buttons/Colored Large Buttons/New Game  col_Button.png"),
+            "button_Options": Button(500, 340,
+                                     "Assets/Menu Buttons/Large Buttons/Colored Large Buttons/Options  col_Button.png"),
+            "button_Quitt": Button(500, 460,
+                                   "Assets/Menu Buttons/Large Buttons/Colored Large Buttons/Quit  col_Button.png"),
+            "button_SousMenuMusique": Button(400, 100,
+                                             "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Music col_Square Button.png"),
+            "button_SousMenuStopMusique": Button(620, 100,
+                                                 "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/X col_Square Button.png"),
+            "button_SousMenuAudio": Button(400, 250,
+                                           "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Audio col_Square Button.png"),
+            "button_SousMenuStopAudio": Button(620, 250,
+                                               "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/X col_Square Button.png"),
+            "button_Retour": Button(520, 420,
+                                    "Assets/Menu Buttons/Square Buttons/Colored Square Buttons/Back col_Square Button.png"),
+            "pause_jeu": Button(990, 500, "Assets/image/Pause_icon.png"),
+            "on_off": Button(990, 535, "Assets/image/On_Off.png")
         }
         self.cartes = {
-            "carte_1": Carte(170, 270, "Assets/Cartes/map_1.png"),
-            "carte_2": Carte(480, 270, "Assets/Cartes/map_2.png"),
-            "carte_3": Carte(790, 270, "Assets/Cartes/map_3.png"),
+            "carte_1": Carte(170, 250, "Assets/Cartes/map_1.png"),
+            "carte_2": Carte(480, 250, "Assets/Cartes/map_2.png"),
+            "carte_3": Carte(790, 250, "Assets/Cartes/map_3.png"),
             "retour": Carte(900, 300, "Assets/Armes/button.jpg")
         }
         self.text = {
-            "text_easy": AfficheurTexte("Facile", 150, 140, (123,104,238)),
-            "text_medium": AfficheurTexte("Moyen", 430, 140, (123,104,238)),
-            "text.difficile": AfficheurTexte("Difficile", 750, 140, (123,104,238)),
+            "text_easy": AfficheurTexte("Facile", 150, 360, (128, 128, 128)),
+            "text_medium": AfficheurTexte("Moyen", 430, 360, (128, 128, 128)),
+            "text.difficile": AfficheurTexte("Difficile", 750, 360, (128, 128, 128)),
             "game_over": AfficheurTexte("Game Over", 400, 400, (199, 0, 57))
         }
         self.etat_button_options = "normal"
         self.etat = "menu"
+        self.en_pause = "play"
+        # instancier musiqueS
         self.sound = Sound("Musique/1.mp3")
         self.vie_joueur = Vie()
         # self.armes = {
         #    "arme_1": Arme(715, 40, "Assets/Armes/arme.png", "arme_1")
         # }
         self.mes_armess = [
-            Arme(715, 40, "Assets/Armes/armes-removebg-preview.png", "arme_1"),
+            Arme(715, 40, "Assets/Armes/arme.png", "arme_1"),
             Arme(820, 40, "Assets/Armes/Basic2 howitzer moving_waifu2x_photo_noise3_scale.png", "arme_2")
             # Ajoutez plus d'armes disponibles avec leurs positions
         ]
         self.mes_armes = []
         self.monstre_positions = []
 
-        self.vagues_de_monstres = [
-            [Monstre(84, 480)],
-            [Monstre(84, 480), Monstre(84, 552), Monstre(84, 624)]
-        ]
+        # self.vagues_de_monstres = [
+        #   [Monstre(84, 480), Monstre(84, 552), Monstre(84, 624)],
+        #  [Monstre(84, 480), Monstre(84, 552), Monstre(84, 624)]
+        # ]
+        self.vagues_de_monstres = []
+        ecart_y = 72  # Écart vertical entre chaque vague de monstres
+        position_y = 480  # Ordonnée initiale pour la première vague
+
+        for i in range(30):
+            vague = [Monstre(84, position_y + (ecart_y * j)) for j in range(10)]  # Coordonnées des monstres de la vague i
+            self.vagues_de_monstres.append(vague)
+            position_y += ecart_y  # Augmenter l'ordonnée initiale pour la prochaine vague
+
         self.monstres_vague_actuelle = 0
         self.vague_actuelle = 0
         self.position_prochaine_vague = 165
@@ -96,43 +123,6 @@ class Map:
         self.arme_initiale = None
         self.type_arme = ""
         self.prix_arme_definie = None
-
-        #-------------------------------------
-        self.vitesse_monstre = 5
-        self.horloge = pygame.time.Clock()
-
-        self.image_monstre = pygame.image.load('Assets/Monsters/Turtle_monster.png')
-        self.image_monstre = pygame.transform.scale(self.image_monstre, (self.pixels, self.pixels))
-
-        self.image_mur = pygame.image.load('Assets/Armes/wals.png')
-        self.image_mur = pygame.transform.scale(self.image_mur, (self.pixels, self.pixels))
-
-        self.image_chemin = pygame.image.load('Assets/sable.jpg')
-        self.image_chemin = pygame.transform.scale(self.image_chemin, (self.pixels, self.pixels))
-
-        self.image_menu = pygame.image.load("Assets/Armes/Image 89 at frame 1copy .jpg")
-        self.image_menu = pygame.transform.scale(self.image_menu, (self.pixels, self.pixels))
-
-        self.pos_monstre = [11, 1]
-        self.positions_visitees = []
-        
-        self.terrain = [
-
-        [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2],
-
-        ]
 
     def draw(self):
         # Afficher les armes disponibles
@@ -172,14 +162,15 @@ class Map:
                         if world[row][col] == 1:
                             # Placer l'arme à l'emplacement valide
                             if self.type_arme == "arme_1":
-                                armes = Arme(x, y, "Assets/Armes/armes-removebg-preview.png", "arme_1")
+                                armes = Arme(x, y, "Assets/Armes/arme.png", "arme_1")
                             elif self.type_arme == "arme_2":
-                                armes = Arme(x, y, "Assets/Armes/Basic2 howitzer moving_waifu2x_photo_noise3_scale.png","arme_2")
+                                armes = Arme(x, y, "Assets/Armes/Basic2 howitzer moving_waifu2x_photo_noise3_scale.png",
+                                             "arme_2")
                             elif self.type_arme == "arme_3":
                                 armes = Arme(x, y, "Assets/Armes/arme_3.png", "arme_3")
                             else:
+
                                 return
-                            
                         if armes is not None:
                             self.towers.append(armes)
                             # Ajoutr la dernière arme ajoutée à mes_armes
@@ -188,7 +179,6 @@ class Map:
                             self.towers[-1].acheter(self)
                             armes.is_placed = True
                             self.arme_placee_recente = True
-
                             if self.argent > armes.cout_arme < self.prix_arme_definie:
                                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
                                 self.initial_image_clicked = False
@@ -214,6 +204,7 @@ class Map:
         mes_armes = self.mes_armes  # Stocker les armes pour éviter un accès répété
 
         for monstre in self.vagues_de_monstres[self.vague_actuelle]:
+
             if vie_joueur > 0:
                 draw_methods = {
                     1: monstre.draw_monstre_map_1,
@@ -225,6 +216,8 @@ class Map:
                 draw_method = draw_methods[num]
                 draw_method(self.screen, self.pixels)
 
+                monstre.update_velocite_rect()
+
                 positions = (monstre.positionX, monstre.positionY)
 
             for arme in self.mes_armes:
@@ -235,33 +228,16 @@ class Map:
                     Arme.all_projectiles.remove(projectile)
 
                 else:
-                    monstre.detecter_collision_projectile([projectile])
-                    projectile.update()
                     projectile.draw(self.screen)
+                    Monstre.detecter_collision_monstres(self.vagues_de_monstres[self.vague_actuelle], [projectile],
+                                                        self)
+                    projectile.update()
+                # projectile.rec_pro()
 
             monstre.update_bar_de_vie(self.screen)
 
             if monstre.positionX == condition_x and monstre.positionY == condition_y:
                 self.vie_joueur.degat(monstre.degat, self.screen)
-
-    def est_position_valide(self, position):
-        x, y = position
-        return 0 <= x < len(self.terrain) and 0 <= y < len(self.terrain[0]) and self.terrain[x][y] == 0
-
-    def deplacer(self):
-        x, y = self.pos_monstre
-
-        if x - 1 >= 0 and self.est_position_valide([x - 1, y]) and [x - 1, y] not in self.positions_visitees:
-            self.pos_monstre = [x - 1, y]  # Déplacer vers le haut
-
-        elif y + 1 < len(self.terrain[0]) and self.est_position_valide([x, y + 1]) and [x, y + 1] not in self.positions_visitees:
-            self.pos_monstre = [x, y + 1]  # Déplacer vers la droite
-
-        elif x + 1 < len(self.terrain) and self.est_position_valide([x + 1, y]) and [x + 1, y] not in self.positions_visitees:
-            self.pos_monstre = [x + 1, y]  # Déplacer vers le bas
-
-        elif y - 1 >= 0 and self.est_position_valide([x, y - 1]) and [x, y - 1] not in self.positions_visitees:
-            self.pos_monstre = [x, y - 1]  # Déplacer vers la gauche
 
     def run(self):
 
@@ -272,6 +248,7 @@ class Map:
                 # on charge notre menu
                 self.screen.blit(self.Fond_Menu, (0, 0))
                 Button.MenuPrincipal(self.mes_button, self.screen, self)
+                #Button.MenuGame(self.mes_button, self.screen, self)
 
             elif self.etat == "map":
                 # self.MenuMap()
@@ -284,41 +261,19 @@ class Map:
 
             # Map 1
             elif self.etat == "jeu_map1":
-                # self.maps(165, -78, 165, -69, word, 1)
-                # self.verifier_le_click_sur_quel_image(word)
-                # self.draw()
-                # self.vie_joueur.afficher_vie_joueur(self.screen)
-                # pygame.display.update()
-
-                #--------------------------------------------------
-
-                self.deplacer()
-                self.positions_visitees.append(self.pos_monstre)
-
-                for i in range(len(self.terrain)):
-                    for j in range(len(self.terrain[0])):
-
-                        if self.terrain[i][j] == 0:
-                            rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
-                            self.fenetre.blit(self.image_chemin, rect)
-                            
-                        elif self.terrain[i][j] == 1:
-                            rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
-                            self.fenetre.blit(self.image_mur, rect)
-
-                        elif self.terrain[i][j] == 2:
-                            rect = pygame.Rect(j * self.pixels, i * self.pixels, self.pixels, self.pixels)
-                            self.fenetre.blit(self.image_menu, rect) 
-
-                self.fenetre.blit(self.image_monstre, (self.pos_monstre[1] * self.pixels, self.pos_monstre[0] * self.pixels))
-
+                self.maps(165, -78, 165, -69, word, 1)
+                self.verifier_le_click_sur_quel_image(word)
+                # Button.MenuGame(self.mes_button, self.screen, self)
+                self.draw()
+                print(self.argent)
+                self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
-                self.horloge.tick(self.vitesse_monstre)
 
             # Map 2
             elif self.etat == "jeu_map2":
                 self.maps(444, -78, 444, -69, word_2, 2)
                 self.verifier_le_click_sur_quel_image(word_2)
+                # Button.MenuGame(self.mes_button, self.screen, self)
                 self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
@@ -327,9 +282,9 @@ class Map:
             elif self.etat == "jeu_map3":
                 self.maps(165, -78, 165, -69, word_3, 3)
                 self.verifier_le_click_sur_quel_image(word_3)
+                # Button.MenuGame(self.mes_button, self.screen, self)
                 self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
-                print(self.argent)
                 pygame.display.update()
 
         pygame.display.flip()

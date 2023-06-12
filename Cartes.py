@@ -1,5 +1,6 @@
 import pygame
 
+
 class Carte:
     # le constrcteur pour creer un bouton Menu
     def __init__(self, x, y, image_path):
