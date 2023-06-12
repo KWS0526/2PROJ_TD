@@ -8,7 +8,7 @@ import pygame
 class Monstre(pygame.sprite.Sprite):
     def __init__(self, positionX, positionY):
         super().__init__()
-        self.image_monstre = pygame.image.load("Assets/alien.png")
+        self.image_monstre = pygame.image.load("Assets/Monsters/Turtle_monster.png")
         self.image_monstre = pygame.transform.scale(
            self.image_monstre, (35, 30))
         self.positionX = positionX
