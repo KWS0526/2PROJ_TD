@@ -36,16 +36,16 @@ class Map:
         self.screen = pygame.display.set_mode(
             (self.window_width, self.window_height))
         # charger un image de fond
-        self.background = pygame.image.load("Assets/sable.jpg")
+        self.background = pygame.image.load("Assets/important_assets/sable.jpg")
         self.background = pygame.transform.scale(
             self.background, (self.window_width, self.window_height))
         # definir l'image de faire de notre Menu
 
-        self.Fond_Menu = pygame.image.load("Assets/BackTest.png")
+        self.Fond_Menu = pygame.image.load("Assets/important_assets/BackTest.png")
         self.Fond_Map = pygame.image.load("Assets/Cartes/map_1.png")
         # instanciation de mon menu
         self.mes_button = {
-            "button_Menu": Button(500, 100, "Assets/logo2-removebg-preview.png"),
+            "button_Menu": Button(500, 100, "Assets/important_assets/logo2-removebg-preview.png"),
             "button_NewGame": Button(380, 270, "Assets/Buttons/New_game.png"),
             "button_Options": Button(620, 270, "Assets/Buttons/Options.png"),
             "button_Quitt": Button(500, 400, "Assets/Buttons/Quit.png"),
@@ -53,7 +53,9 @@ class Map:
             "button_SousMenuStopMusique": Button(620, 100, "Assets/Buttons/Decline.png"),
             "button_SousMenuAudio": Button(400, 250, "Assets/Buttons/Music_note_icon.png"),
             "button_SousMenuStopAudio": Button(620, 250, "Assets/Buttons/Decline.png"),
-            "button_Retour": Button(520, 420, "Assets/Buttons/Back.png")
+            "button_Retour": Button(520, 420, "Assets/Buttons/Back.png"),
+            "coin": Button(780, 475, "Assets/Armes/coin.png"),
+            "kill_game": Button(1010,480,"Assets/Buttons/On_Off.png")
         }
         self.cartes = {
             "carte_1": Carte(170, 270, "Assets/Cartes/map_1.png"),
@@ -170,14 +172,14 @@ class Map:
                             self.towers[-1].acheter(self)
                             armes.is_placed = True
                             self.arme_placee_recente = True
-                            if self.argent > armes.cout_arme < self.prix_arme_definie:
+                            if len(self.mes_armes) == 3:
                                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
                                 self.initial_image_clicked = False
 
     def maps(self, position_x, position_y, condition_x, condition_y, monde, num):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
+        #for event in pygame.event.get():
+         #   if event.type == pygame.QUIT:
+          #      self.running = False
 
         Carte.draw_map(self.matrix_height, self.matrix_width, self.pixels, monde, self.screen)
 
@@ -193,7 +195,6 @@ class Map:
         # Afficher les monstres de la vague actuelle
         vie_joueur = self.vie_joueur.vie_joueur  # Stocker la valeur de vie du joueur pour éviter un accès répété
         mes_armes = self.mes_armes  # Stocker les armes pour éviter un accès répété
-
         for monstre in self.vagues_de_monstres[self.vague_actuelle]:
 
             if vie_joueur > 0:
@@ -206,13 +207,12 @@ class Map:
             if num in draw_methods:
                 draw_method = draw_methods[num]
                 draw_method(self.screen, self.pixels)
-
                 monstre.update_velocite_rect()
-
                 positions = (monstre.positionX, monstre.positionY)
 
             for arme in self.mes_armes:
                 Arme.detecter_monstres([arme], positions, 300)
+                Monstre.afficher_pieces_gagnees(self.screen)
 
             for projectile in Arme.all_projectiles.copy():
                 if projectile.rect.right < 0 or projectile.rect.left > self.window_width or projectile.rect.bottom < 0 or projectile.rect.top > self.window_height:
@@ -225,10 +225,13 @@ class Map:
                     projectile.update()
                 # projectile.rec_pro()
 
+            self.mes_button['coin'].afficher_coin(self.screen, self.argent)
+            #Button.kill_jeu(self.mes_button,self.screen,self)
+
             monstre.update_bar_de_vie(self.screen)
 
             if monstre.positionX == condition_x and monstre.positionY == condition_y:
-                self.vie_joueur.degat(monstre.degat, self.screen)
+                self.vie_joueur.degat(monstre.degat, self.screen, self)
 
     def run(self):
 
@@ -255,6 +258,7 @@ class Map:
                 self.maps(165, -78, 165, -69, word, 1)
                 self.verifier_le_click_sur_quel_image(word)
                 self.draw()
+
                 self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
 
@@ -275,6 +279,8 @@ class Map:
                 self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
+
+
 
         pygame.display.flip()
 

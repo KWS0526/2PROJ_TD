@@ -39,10 +39,13 @@ class Arme:
         self.direction = (0, 0)
 
     def draw_armes(self, window):
-
+        t = 100
         window.blit(self.image, (self.position_x, self.position_y))
         if self.cadenas_visible:
             window.blit(self.cadenas_image, (self.position_x, self.position_y))
+            # police = pygame.font.Font(None, 30)
+            # texte_montant = police.render("{}".format(t), True, (255, 255, 255))
+            # window.blit(texte_montant, (self.rect.right - 130, self.rect.top + 40))
 
     def draw_armess(self, is_placed, window):
         if is_placed:  # Vérifier si l'arme est placée
@@ -91,14 +94,18 @@ class Arme:
                 (arme.position_x - monster_position[0]) ** 2 + (arme.position_y - monster_position[1]) ** 2)
 
             if distance <= distance_min and distance <= champ_vision:
-                cls.lancer_projectiles(arme.position_x, arme.position_y, monster_position)
-
+                cls.lancer_projectiles(arme.position_x, arme.position_y, monster_position,arme.type)
 
     @classmethod
-    def lancer_projectiles(cls, position_x, position_y, target_position):
+    def lancer_projectiles(cls, position_x, position_y, target_position, type_arme):
         current_time = time.time()
         if current_time - cls.last_shot_time >= cls.projectile_delay:
-            projectile_image = pygame.image.load("Assets/Armes/Bullet1.png").convert_alpha()
+            projectile_image = None
+            if type_arme == "arme_1":
+                projectile_image = pygame.image.load("Assets/Armes/Bullet1.png").convert_alpha()
+            elif type_arme == "arme_2":
+                projectile_image = pygame.image.load("Assets/Armes/Bullet1 (1).png").convert_alpha()
+
             projectile = Projectile(position_x + 25, position_y - 3, target_position, projectile_image)
             cls.all_projectiles.add(projectile)
             cls.last_shot_time = current_time

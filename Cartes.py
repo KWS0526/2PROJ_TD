@@ -54,7 +54,7 @@ class Carte:
                     Carte.afficher_decor("Assets/Armes/wals.png", pixels, x, y, screen)
                 elif cellule == 0:
 
-                    Carte.afficher_decor("Assets/sable.jpg", pixels, x, y, screen)
+                    Carte.afficher_decor("Assets/important_assets/sable.jpg", pixels, x, y, screen)
 
                 elif cellule == 2:
                     # pygame.draw.rect(self.screen, (171, 178, 185), pygame.Rect(x, y, self.pixels, 40))

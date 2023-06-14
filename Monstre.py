@@ -5,31 +5,57 @@ from random import random
 import pygame
 
 
+class Piece:
+    pieces_gagnees = []
+
+    def __init__(self, position_x, position_y, image):
+        self.position_x = position_x
+        self.position_y = position_y
+        self.image = image
+        self.animation_duree = 0
+        self.animation_speed = 5
+
+    def afficher_animation(self, screen):
+        self.position_y -= self.animation_speed
+        self.animation_duree += 1
+
+        self.image = pygame.transform.scale(self.image, (10, 10))
+
+        screen.blit(self.image, (self.position_x + 50, self.position_y + 60))
+
+        if self.animation_duree >= 2:
+            if self in Piece.pieces_gagnees:
+                Piece.pieces_gagnees.remove(self)
+
+
 class Monstre(pygame.sprite.Sprite):
+    pieces_gagnees = []
+
     def __init__(self, positionX, positionY):
         super().__init__()
         self.image_monstre = pygame.image.load("Assets/Monsters/Turtle_monster.png")
         self.image_monstre = pygame.transform.scale(
-           self.image_monstre, (35, 30))
+            self.image_monstre, (35, 30))
         self.positionX = positionX
         self.positionY = positionY
         self.rect = self.image_monstre.get_rect()
         self.rect.x = self.positionX
         self.rect.y = self.positionY
 
-        self.rect.width = self.image_monstre.get_width()-10
+        self.rect.width = self.image_monstre.get_width() - 8
         self.rect.center = (self.positionX, self.positionY)
 
-        self.rect.height = self.image_monstre.get_height()-2
+        self.rect.height = self.image_monstre.get_height() - 2
         self.vitesse = 3
         self.health = 2
         self.direction_x = 0
         self.direction_y = 0
         self.nbr_vie = 50
         self.nbr_vie_max = 50
-        self.degat = 25
+        self.degat = 100
         self.positions_visitees = set()
         self.position_monstre = [self.positionX, self.positionY]
+        self.defense = False
 
     @classmethod
     def detecter_collision_monstres(cls, monstres, projectiles, Map):
@@ -40,12 +66,10 @@ class Monstre(pygame.sprite.Sprite):
                     # Collision détectée entre le monstre et le projectile
                     monstre.nbr_vie -= 5
                     projectiles.remove(projectile)  # Supprimer le projectile lorsqu'il touche le monstre
-                    print("Monstre touché !")
-
                     if monstre.nbr_vie <= 0:
+                        cls.gagner_piece(monstre.positionX, monstre.positionY)  # Gagner une pièce
                         monstres.remove(monstre)
-                        Map.argent +=20
-
+                        Map.argent += 5
 
     def position_depart(self):
         self.positionX = 84
@@ -92,7 +116,7 @@ class Monstre(pygame.sprite.Sprite):
 
     def draw_monstre_map_1(self, screen, pixels):
         if self.image_monstre is not None:
-            screen.blit(self.image_monstre, (self.positionX+pixels, self.positionY+pixels))
+            screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
             pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
 
             if self.positionY != 324 and self.positionX == 84:
@@ -179,8 +203,18 @@ class Monstre(pygame.sprite.Sprite):
         print(self.rect)
 
     def update_velocite_rect(self):
-        self.rect.x = self.positionX+45
-        self.rect.y = self.positionY+42
+        self.rect.x = self.positionX + 45
+        self.rect.y = self.positionY + 42
 
+    @classmethod
+    def gagner_piece(cls, position_x, position_y):
+        piece_image = pygame.image.load("Assets/Armes/coin_simple.png").convert_alpha()
+        piece = Piece(position_x, position_y, piece_image)
+        cls.pieces_gagnees.append(piece)
 
-
+    @classmethod
+    def afficher_pieces_gagnees(cls, screen):
+        for piece in cls.pieces_gagnees:
+            piece.afficher_animation(screen)
+            if piece.animation_duree >= 10:
+                cls.pieces_gagnees.remove(piece)  # Supprimer la pièce de la liste lorsque l'animation est terminée

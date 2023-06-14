@@ -12,6 +12,8 @@ class Vie:
         self.vie_joueur = 100
         self.vie_joueur_max = 100
         self.estVivant = True
+        self.restart = pygame.image.load("Assets/Buttons/Start.png")
+        self.exit = pygame.image.load("Assets/Buttons/Exit.png")
 
     def afficher_vie_joueur(self, surface):
         couleur_arriere_plan = (60, 63, 60)
@@ -30,20 +32,25 @@ class Vie:
         # dessiner le texte sur la surface de jeu
         screen.blit(texte, (370, 10))
 
-    def degat(self, nbr, screen):
+    def degat(self, nbr, screen, Map):
         self.vie_joueur -= nbr
         if self.vie_joueur == 0:
             self.estVivant = False
-            time.sleep(1)
+            time.sleep(0.5)
             # Afficher le texte "Game over" sur l'écran
             font = pygame.font.SysFont('Comic Sans MS', 50)
             game_over_text = font.render('Game over', True, (255, 0, 0))
+            self.restart = pygame.transform.scale(self.restart, (80, 50))
+            self.exit = pygame.transform.scale(self.exit, (80, 50))
             game_over_rect = game_over_text.get_rect()
             game_over_rect.centerx = screen.get_rect().centerx
             game_over_rect.centery = screen.get_rect().centery
 
             # Afficher le texte "Game over" sur l'écran
             screen.blit(game_over_text, game_over_rect)
+            screen.blit(self.restart,(game_over_rect.x+30,game_over_rect.y+50))
+            screen.blit(self.exit,(game_over_rect.x+30,game_over_rect.y+120))
+
             pygame.display.flip()
 
             # Boucle d'événements pour détecter les événements de fermeture de la fenêtre
@@ -56,3 +63,13 @@ class Vie:
                         if event.key == pygame.K_ESCAPE:  # Si l'utilisateur appuie sur la touche "ESCAPE"
                             pygame.quit()
                             sys.exit()
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        mouse_pos = pygame.mouse.get_pos()
+                        restart_button_rect = pygame.Rect(game_over_rect.x+30, game_over_rect.y+50, 80, 50)
+                        exit_button_rect = pygame.Rect(game_over_rect.x+30, game_over_rect.y+120, 80,50)
+                        if restart_button_rect.collidepoint(mouse_pos):
+                            Map.etat="jeu_map1"
+                            print(Map.etat)
+                        elif exit_button_rect.collidepoint(mouse_pos):
+                            Map.etat="menu"
+
