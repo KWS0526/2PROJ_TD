@@ -1,8 +1,5 @@
 import pygame
-
-
-from game import Map
-
+from src.componant.game import Map
 
 if __name__ == '__main__':
     pygame.init()
