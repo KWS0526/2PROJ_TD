@@ -24,6 +24,8 @@ class Map:
         self.running = True
         # titre de notre jeu
         pygame.display.set_caption("Tower Defense")
+        repertoire_actuel = os.getcwd()
+        print("Répertoire de travail actuel :", repertoire_actuel)
         # on récupère notre matrix que l'on stocke sur un variable
         self.world = world
         # Définir la taille de la matrice et des carrés

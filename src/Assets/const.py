@@ -1,7 +1,7 @@
 import math
 
 #GAME
-BG_SABLE = "/Users/victoryang/Documents/TestExe/2PROJ_TD/src/Assets/Design/sable.jpg"
+BG_SABLE = "src/Assets/Design/sable.jpg"
 FOND_MENU = "/Users/victoryang/Documents/TestExe/2PROJ_TD/src/Assets/Design/BackTest.png"
 FOND_MAP = "/Users/victoryang/Documents/TestExe/2PROJ_TD/src/Assets/Cartes/map_1.png"
 BUTTON_MENU = "/Users/victoryang/Documents/TestExe/2PROJ_TD/src/Assets/Design/logo2-removebg-preview.png"
