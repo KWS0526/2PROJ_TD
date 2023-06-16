@@ -62,5 +62,6 @@ class Carte:
                     screen.blit(image, (681, 0))
 
                 elif cellule == 3:
+                    Carte.afficher_decor(IMG_MUR, pixels, x, y, screen)
                     Carte.afficher_decor(POS_WEAPON, pixels, x, y, screen)
 
