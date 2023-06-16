@@ -68,7 +68,7 @@ class Vie:
                         restart_button_rect = pygame.Rect(game_over_rect.x+30, game_over_rect.y+50, 80, 50)
                         exit_button_rect = pygame.Rect(game_over_rect.x+30, game_over_rect.y+120, 80,50)
                         if restart_button_rect.collidepoint(mouse_pos):
-                            Map.etat="jeu_map1"
+                            Map.etat="menu"
                             print(Map.etat)
                         elif exit_button_rect.collidepoint(mouse_pos):
                             Map.etat="menu"
