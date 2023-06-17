@@ -39,6 +39,9 @@ horloge = pygame.time.Clock()
 image_boule = pygame.image.load('Assets/Monsters/Fire_Monster.png')
 image_boule = pygame.transform.scale(image_boule, (taille_boule, taille_boule))
 boule_rect = image_boule.get_rect()
+image_boule = pygame.image.load('Assets/alien.png')
+image_boule = pygame.transform.scale(image_boule, (taille_boule, taille_boule))
+boule_rect = image_boule.get_rect()
 
 pos_monstre = [12, 3]
 positions_visitees = []
