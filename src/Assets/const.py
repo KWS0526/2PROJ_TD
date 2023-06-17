@@ -3,6 +3,8 @@
 # # -------------  SETTINGS  -------------
 
 # SIZE = 40
+# TD_TITTLE = "Tower Defense"
+
 
 # # -------------  ALLS BUTTON  -------------
 
@@ -40,11 +42,10 @@
 
 # # -------------  DESIGN  -------------
 
-# IMG_USER = "src\Assets\Design\plate_item.jpg"
-# COIN = "src\Assets\Design\coin.png"
-# FOND_MENU = "src\Assets\Design\Background.png"
-# FOND_MAP = "src\Assets\Cartes\map_1.png"
-# SIMPLE_COIN = "src\Assets\Armes\coin_simple.png"
+# IMG_USER = "src/Assets/Design/plate_item.jpg"
+# COIN = "src/Assets/Design/coin.png"
+# FOND_MENU = "src/Assets/Design/Background.png"
+# FOND_MAP = "src/Assets/Cartes/map_1.png"
 
 
 # # -------------  ALLS WEAPONS ASSETS  -------------
@@ -71,7 +72,10 @@
 # STRUCTURE = "src\Assets\Weapons\Structure.png"
 
 # # LOCK
-# IMG_LOCK = "src\Assets\Armes\lock_ability.jpg"
+# IMG_LOCK = "src/Assets/Design/lock.jpg"
+
+# # SPECIAL
+# FIRE_BALL = "src/Assets/Weapons/Fire_ball.png"
 
 
 # # -------------  ALLS MAPS  -------------
@@ -98,6 +102,7 @@
 # -------------  SETTINGS  -------------
 
 SIZE = 40
+TD_TITTLE = "Tower Defense"
 
 # -------------  ALLS BUTTON  -------------
 
@@ -141,15 +146,14 @@ IMG_USER = "src/Assets/Design/plate_item.jpg"
 COIN = "src/Assets/Design/coin.png"
 FOND_MENU = "src/Assets/Design/Background.png"
 FOND_MAP = "src/Assets/Cartes/map_1.png"
-SIMPLE_COIN = "src/Assets/Armes/coin_simple.png"
 
 
 # -------------  ALLS WEAPONS ASSETS  -------------
 
 # WEAPON RED
-WEAPON_RED_LV1 = "src/Assets/Weapons/Weapon_red_lv3.png"
+WEAPON_RED_LV1 = "src/Assets/Weapons/Weapon_red_lv1.png"
 WEAPON_RED_LV2 = "src/Assets/Weapons/Weapon_red_lv2.png"
-WEAPON_RED_LV3 = "src/Assets/Weapons/Weapon_red_lv1.png"
+WEAPON_RED_LV3 = "src/Assets/Weapons/Weapon_red_lv3.png"
 WEAPON_RED_BULLET = "src/Assets/Weapons/Weapon_red_bullet.png"
 
 # WEAPON GREEN
@@ -168,7 +172,11 @@ WEAPON_BLUE_BULLET = "src/Assets/Weapons/Weapon_blue_bullet.png"
 STRUCTURE = "src/Assets/Weapons/Structure.png"
 
 # LOCK
-IMG_LOCK = "src/Assets/Armes/lock_ability.jpg"
+IMG_LOCK = "src/Assets/Design/lock.jpg"
+
+# SPECIAL
+FIRE_BALL = "src/Assets/Weapons/Fire_ball.png"
+EXPLOSION = "src/Assets/Weapons/Explosion.png"
 
 
 # -------------  ALLS MAPS  -------------

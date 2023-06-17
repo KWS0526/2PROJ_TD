@@ -35,17 +35,14 @@ class Monstre(pygame.sprite.Sprite):
     def __init__(self, positionX, positionY):
         super().__init__()
         self.image_monstre = pygame.image.load(MONSTER_1)
-        self.image_monstre = pygame.transform.scale(
-            self.image_monstre, (35, 30))
+        self.image_monstre = pygame.transform.scale(self.image_monstre, (35, 30))
         self.positionX = positionX
         self.positionY = positionY
         self.rect = self.image_monstre.get_rect()
         self.rect.x = self.positionX
         self.rect.y = self.positionY
-
         self.rect.width = self.image_monstre.get_width() - 8
         self.rect.center = (self.positionX, self.positionY)
-
         self.rect.height = self.image_monstre.get_height() - 2
         self.vitesse = 3
         self.health = 2
@@ -209,7 +206,7 @@ class Monstre(pygame.sprite.Sprite):
 
     @classmethod
     def gagner_piece(cls, position_x, position_y):
-        piece_image = pygame.image.load(SIMPLE_COIN).convert_alpha()
+        piece_image = pygame.image.load(COIN).convert_alpha()
         piece = Piece(position_x, position_y, piece_image)
         cls.pieces_gagnees.append(piece)
 

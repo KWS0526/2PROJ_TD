@@ -20,7 +20,7 @@ class Arme:
         # self.position_tir_y = None
         self.type = types
         self.image = pygame.image.load(image)
-        self.image = pygame.transform.scale(self.image, (80, 70)).convert()
+        self.image = pygame.transform.scale(self.image, (70, 80)).convert()
         self.position_x = position_x
         self.position_y = position_y
         self.rect = self.image.get_rect(center=(position_x, position_y))
@@ -32,7 +32,7 @@ class Arme:
         self.all_projectilles = pygame.sprite.Group()
         self.cadenas_image = pygame.image.load(IMG_LOCK)
         self.cadenas_visible = True
-        self.cout_arme = 50
+        self.cout_arme = 25
         self.deverrouille = False
         self.check_arme = True
         self.is_selected = False
@@ -105,6 +105,8 @@ class Arme:
                 projectile_image = pygame.image.load(WEAPON_RED_BULLET).convert_alpha()
             elif type_arme == "arme_2":
                 projectile_image = pygame.image.load(WEAPON_GREEN_BULLET).convert_alpha()
+            elif type_arme == "arme_3":
+                projectile_image = pygame.image.load(WEAPON_BLUE_BULLET).convert_alpha()
 
             projectile = Projectile(position_x + 25, position_y - 3, target_position, projectile_image)
             cls.all_projectiles.add(projectile)

@@ -15,7 +15,7 @@ from src.componant.Armes import Arme
 from src.componant.Cartes import Carte
 from src.componant.AfficheurTexte import AfficheurTexte
 from src.componant.word import *
-
+from src.componant.Wave_monster import Wave_monster
 
 class Map:
     def __init__(self):
@@ -23,7 +23,7 @@ class Map:
         self.selected_tower = None
         self.running = True
         # titre de notre jeu
-        pygame.display.set_caption("Tower Defense")
+        pygame.display.set_caption(TD_TITTLE)
         # on récupère notre matrix que l'on stocke sur un variable
         self.word = word
         # Définir la taille de la matrice et des carrés
@@ -80,8 +80,9 @@ class Map:
         #    "arme_1": Arme(715, 40, "Assets/Armes/arme.png", "arme_1")
         # }
         self.mes_armess = [
-            Arme(715, 40, WEAPON_RED_LV1, "arme_1"),
-            Arme(820, 40, WEAPON_GREEN_LV1, "arme_2")
+            Arme(740, 40, WEAPON_RED_LV1, "arme_1"),
+            Arme(830, 40, WEAPON_GREEN_LV1, "arme_2"),
+            Arme(740, 130, WEAPON_BLUE_LV1, "arme_3")
             # Ajoutez plus d'armes disponibles avec leurs positions
         ]
         self.mes_armes = []
@@ -101,6 +102,11 @@ class Map:
             self.vagues_de_monstres.append(vague)
             position_y += ecart_y  # Augmenter l'ordonnée initiale pour la prochaine vague
 
+        # Exemple d'utilisation dans un autre fichier
+        # vague_monstres = Wave_monster()
+        # vague_monstres.generer_vagues(ecart_y=10, nb_vagues=2, nb_monstres_par_vague=5, position_y_initiale=0)
+
+
         self.monstres_vague_actuelle = 0
         self.vague_actuelle = 0
         self.position_prochaine_vague = 165
@@ -110,7 +116,7 @@ class Map:
         self.towers = []
         self.placing_tower = False
         self.selected_weapon = None
-        self.argent = 200
+        self.argent = 300
         self.arme_placee_recente = True
         self.click_counter = 0
         self.initial_image_clicked = False
@@ -320,7 +326,6 @@ class Map:
             elif self.etat == "jeu_map1":
 
                 self.maps(165, -78, 165, -69, word, 1)
-
                 self.verifier_le_click_sur_quel_image(word)
                 self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
