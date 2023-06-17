@@ -81,6 +81,9 @@ WEAPON_BLUE_LV2 = "src/Assets/Weapons/Weapon_blue_lv2.png"
 WEAPON_BLUE_LV3 = "src/Assets/Weapons/Weapon_blue_lv3.png"
 WEAPON_BLUE_BULLET = "src/Assets/Weapons/Weapon_blue_bullet.png"
 
+# UPGRADE
+UPGRADE = "src/Assets/Buttons/Upgrade.png"
+
 # STRUCTURE
 STRUCTURE = "src/Assets/Weapons/Structure.png"
 

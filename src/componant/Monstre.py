@@ -48,7 +48,7 @@ class Monstre(pygame.sprite.Sprite):
         self.health = 2
         self.direction_x = 0
         self.direction_y = 0
-        self.nbr_vie = 100
+        self.nbr_vie = 50
         self.nbr_vie_max = 50
         self.degat = 10
         self.positions_visitees = set()
@@ -187,18 +187,12 @@ class Monstre(pygame.sprite.Sprite):
             if self.positionX == target_x and self.positionY == target_y:
                 self.current_position_index = (self.current_position_index + 1) % len(positions)
 
-                if self.current_position_index == 0:
-                    self.perform_final_action()
-
-    def perform_final_action(self):
-        # Effectuer l'action finale ici
-        print("Action finale du monstre")
-
 
     def draw_monstre_map_2(self, screen, pixels):
         if self.image_monstre is not None:
             screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
-            # Dans ces conditions on verifies la position initiale du joueur lors du creation de l'objet si cette position respecte les conditions le monstre pourra se deplacer
+            # Dans ces conditions on verifies la position initiale du joueur lors du creation 
+            # de l'objet si cette position respecte les conditions le monstre pourra se deplacer
             if self.positionY != 327 and self.positionX == 84:
                 self.positionY -= self.vitesse
             elif self.positionX != 123 and self.positionY == 327:

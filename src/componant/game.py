@@ -84,6 +84,9 @@ class Map:
             Arme(740, 130, WEAPON_BLUE_LV1, "arme_3")
             # Ajoutez plus d'armes disponibles avec leurs positions
         ]
+        self.upgrade = [
+            
+        ]
         self.mes_armes = []
         self.monstre_positions = []
 
