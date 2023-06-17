@@ -28,7 +28,7 @@ class Projectile(Sprite):
             direction_y = 0
 
         #  la vitesse du projectile
-        speed = 4  #
+        speed = 4
 
         self.velocity_x = direction_x * speed
         self.velocity_y = direction_y * speed
@@ -56,14 +56,31 @@ class Projectile(Sprite):
         # Dessiner le projectile à l'écran
         screen.blit(self.image, self.rect)
 
+    # ------------ Abdoulaye ------------ 
+    # def detecter_collision_monstres(self, monstres):
+    #     for monstre in monstres:
+    #         if self.rect.colliderect(monstre.rect):
+    #             monstre.nbr_vie -= 5
+    #             self.kill()  # Supprimer le projectile lorsqu'il touche un monstre
+    #             print("Projectile touché un monstre")
+
+    #             if monstre.nbr_vie <= 0:
+    #                 print(monstre.nbr_vie)
+    #                 monstre.kill()  # Supprimer le monstre lorsqu'il est mort
+
+    # ------------ Victor ------------
     def detecter_collision_monstres(self, monstres):
         for monstre in monstres:
             if self.rect.colliderect(monstre.rect):
-                monstre.nbr_vie -= 5
+                degats = 5
+                if monstre.defense > 0:
+                    reduction_degats = int(degats * monstre.defense / 100)  # Réduction des dégâts en fonction de la défense
+                    degats -= reduction_degats
+
+                monstre.nbr_vie -= degats
                 self.kill()  # Supprimer le projectile lorsqu'il touche un monstre
                 print("Projectile touché un monstre")
 
                 if monstre.nbr_vie <= 0:
                     print(monstre.nbr_vie)
                     monstre.kill()  # Supprimer le monstre lorsqu'il est mort
-

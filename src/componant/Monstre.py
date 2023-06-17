@@ -31,8 +31,8 @@ class Piece:
 
 class Monstre(pygame.sprite.Sprite):
     pieces_gagnees = []
-
-    def __init__(self, positionX, positionY):
+    # Abdoulaye
+    def __init__(self, positionX, positionY, defense = 0):
         super().__init__()
         self.image_monstre = pygame.image.load(MONSTER_1)
         self.image_monstre = pygame.transform.scale(self.image_monstre, (35, 30))
@@ -48,26 +48,58 @@ class Monstre(pygame.sprite.Sprite):
         self.health = 2
         self.direction_x = 0
         self.direction_y = 0
-        self.nbr_vie = 50
+        self.nbr_vie = 100
         self.nbr_vie_max = 50
-        self.degat = 5
+        self.degat = 10
         self.positions_visitees = set()
         self.position_monstre = [self.positionX, self.positionY]
-        self.defense = False
+        self.defense = defense
+        self.current_position_index = 0
 
+
+    # Victor
+    # def __init__(self, image_monstre, positionX, positionY, vitesse):
+    #     self.image_monstre = image_monstre
+    #     self.positionX = positionX
+    #     self.positionY = positionY
+    #     self.vitesse = vitesse
+    #     self.rect = self.image_monstre.get_rect()
+    #     self.current_position_index = 0
+
+
+    # Abdoulaye
+    # @classmethod
+    # def detecter_collision_monstres(cls, monstres, projectiles, Map):
+
+    #     for monstre in monstres:
+    #         for projectile in projectiles:
+    #             if monstre.rect.colliderect(projectile.rect):
+    #                 # Collision détectée entre le monstre et le projectile
+    #                 monstre.nbr_vie -= 5
+    #                 projectiles.remove(projectile)  # Supprimer le projectile lorsqu'il touche le monstre
+    #                 if monstre.nbr_vie <= 0:
+    #                     cls.gagner_piece(monstre.positionX, monstre.positionY)  # Gagner une pièce
+    #                     monstres.remove(monstre)
+    #                     Map.argent += 5
     @classmethod
     def detecter_collision_monstres(cls, monstres, projectiles, Map):
-
         for monstre in monstres:
             for projectile in projectiles:
                 if monstre.rect.colliderect(projectile.rect):
                     # Collision détectée entre le monstre et le projectile
-                    monstre.nbr_vie -= 5
+                    degats = 5
+                    if monstre.defense > 0:
+                        degats -= monstre.defense
+                        degats = max(0, degats)  # Les dégâts ne peuvent pas être négatifs
+                    
+                    monstre.nbr_vie -= degats
                     projectiles.remove(projectile)  # Supprimer le projectile lorsqu'il touche le monstre
+                    
                     if monstre.nbr_vie <= 0:
                         cls.gagner_piece(monstre.positionX, monstre.positionY)  # Gagner une pièce
                         monstres.remove(monstre)
                         Map.argent += 5
+
 
     def position_depart(self):
         self.positionX = 84
@@ -88,8 +120,7 @@ class Monstre(pygame.sprite.Sprite):
 
     def show_message(self, screen, message):
         font = pygame.font.Font(None, 24)  # Définir la police et la taille du texte
-        text = font.render(message, True,
-                           (255, 255, 255))  # Créer une surface de texte avec le message et la couleur blanche
+        text = font.render(message, True,(255, 255, 255))  # Créer une surface de texte avec le message et la couleur blanche
         text_rect = text.get_rect(center=self.rect.center)  # Obtenir le rectangle du texte centré sur le monstre
         screen.blit(text, text_rect)  # Afficher le texte à l'écran
 
@@ -112,29 +143,57 @@ class Monstre(pygame.sprite.Sprite):
 
         print("{0},{1}".format(self.positionX, self.positionY))
 
+    # def draw_monstre_map_1(self, screen, pixels):
+    #     if self.image_monstre is not None:
+    #         screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
+    #         pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
+    # # si map 1 si map 2
+    #         positions = [(84, 324), (564, 324), (564, 42), (165, 42), (165, -78)]
+    #         target_position = positions[self.current_position_index]
+    #         target_x, target_y = target_position
+
+    #         if self.positionX < target_x:
+    #             self.positionX += self.vitesse
+    #         elif self.positionX > target_x:
+    #             self.positionX -= self.vitesse
+
+    #         if self.positionY < target_y:
+    #             self.positionY += self.vitesse
+    #         elif self.positionY > target_y:
+    #             self.positionY -= self.vitesse
+
+    #         if self.positionX == target_x and self.positionY == target_y:
+    #             self.current_position_index = (self.current_position_index + 1) % len(positions)
+
     def draw_monstre_map_1(self, screen, pixels):
         if self.image_monstre is not None:
             screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
             pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
 
-            if self.positionY != 324 and self.positionX == 84:
-                self.positionY -= self.vitesse
+            positions = [(84, 324), (564, 324), (564, 42), (165, 42), (165, -78)]
+            target_position = positions[self.current_position_index]
+            target_x, target_y = target_position
 
-            elif self.positionX != 564 and self.positionY == 324:
+            if self.positionX < target_x:
                 self.positionX += self.vitesse
-
-            elif self.positionY != 42 and self.positionX == 564:
-                self.positionY -= self.vitesse
-
-            elif self.positionX != 165 and self.positionY == 42:
+            elif self.positionX > target_x:
                 self.positionX -= self.vitesse
 
-            elif self.positionX == 165 and self.positionY != -78:
+            if self.positionY < target_y:
+                self.positionY += self.vitesse
+            elif self.positionY > target_y:
                 self.positionY -= self.vitesse
 
-                if self.positionX == 165 and self.positionY == -75:
-                    # self.position_depart()
-                    pass
+            if self.positionX == target_x and self.positionY == target_y:
+                self.current_position_index = (self.current_position_index + 1) % len(positions)
+
+                if self.current_position_index == 0:
+                    self.perform_final_action()
+
+    def perform_final_action(self):
+        # Effectuer l'action finale ici
+        print("Action finale du monstre")
+
 
     def draw_monstre_map_2(self, screen, pixels):
         if self.image_monstre is not None:
