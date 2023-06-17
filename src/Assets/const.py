@@ -113,6 +113,8 @@ ICON_PAUSE = "src/Assets/Buttons/Pause_icon.png"
 KILL_GAME = "src/Assets/Buttons/On_Off.png"
 START = "src/Assets/Buttons/Start.png"
 EXIT = "src/Assets/Buttons/Exit.png"
+Validation = "src/Assets/Buttons/Validation.png"
+Continue ="src/Assets/Buttons/Continue.png"
 
 
 # -------------  MUSIC  -------------

@@ -103,8 +103,24 @@ class Button:
         police = pygame.font.Font(None, 30)
         texte_montant = police.render("{}".format(argent), True, (255, 255, 255))
         screen.blit(texte_montant, (self.rect.right - 130, self.rect.top + 40))
+    @classmethod
+    def ameliorer(cls,Map):
+        image = pygame.image.load(Validation)
+        image = pygame.transform.scale(image, (40, 40))
+        image_rect = image.get_rect(topleft=(910, 365))
+        if Map.etat=="jeu_map1":
+            Map.screen.blit(image,(910,365))
 
-
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    Map.running = False
+                # On écoute les evenement du Menu
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse = pygame.mouse.get_pos()
+                    # Vérifier si les coordonnées du clic sont à l'intérieur du rectangle de l'image
+                    if image_rect.collidepoint(mouse):
+                        # L'utilisateur a cliqué sur l'image
+                        print("Image cliquée !")
 
     @classmethod
     def MenuOptions(cls, mes_button, screen, Map, sound):
