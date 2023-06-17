@@ -34,14 +34,17 @@ class MenuGame:
                 if game.cartes["carte_1"].is_clicked_map(pygame.mouse.get_pos()):
                     # On change l'etat du jeu qui va charger le map choisie
                     game.etat = "jeu_map1"
+                    game.map=1
                 # Si l'utilisateur clique sur le deuxime map
                 elif game.cartes["carte_2"].is_clicked_map(pygame.mouse.get_pos()):
                     # On change l'etat du jeu qui va charger le map choisie
                     game.etat = "jeu_map2"
+                    game.map=2
                 # Si l'utilisateur clique sur le troisime map
                 elif game.cartes["carte_3"].is_clicked_map(pygame.mouse.get_pos()):
                     # On change l'etat du jeu qui charger le map choisie
                     game.etat = "jeu_map3"
+                    game.map=3
 
         pygame.display.flip()
 

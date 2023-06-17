@@ -75,6 +75,7 @@ class Map:
         self.musiques = LIST_SONG
         self.sound = Sound(self.musiques)
         self.vie_joueur = Vie()
+        self.map=0
         # self.armes = {
         #    "arme_1": Arme(715, 40, "Assets/Armes/arme.png", "arme_1")
         # }
@@ -107,7 +108,6 @@ class Map:
         # Exemple d'utilisation dans un autre fichier
         # vague_monstres = Wave_monster()
         # vague_monstres.generer_vagues(ecart_y=10, nb_vagues=2, nb_monstres_par_vague=5, position_y_initiale=0)
-
 
         self.monstres_vague_actuelle = 0
         self.vague_actuelle = 0
@@ -273,15 +273,7 @@ class Map:
         for monstre in self.vagues_de_monstres[self.vague_actuelle]:
 
             if vie_joueur > 0:
-                draw_methods = {
-                    1: monstre.draw_monstre_map_1,
-                    2: monstre.draw_monstre_map_2,
-                    3: monstre.draw_monstre_map_3
-                }
-
-            if num in draw_methods:
-                draw_method = draw_methods[num]
-                draw_method(self.screen, self.pixels)
+                monstre.draw_monstre(self.screen, self.pixels, self.map)
                 monstre.update_velocite_rect()
                 positions = (monstre.positionX, monstre.positionY)
 
