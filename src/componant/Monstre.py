@@ -100,6 +100,11 @@ class Monstre(pygame.sprite.Sprite):
                         monstres.remove(monstre)
                         Map.argent += 5
 
+        if len(monstres) == 3:
+            for monstre in monstres:
+                monstre.nbr_vie += 10
+                monstre.defense+=2
+
 
     def position_depart(self):
         self.positionX = 84
@@ -124,51 +129,7 @@ class Monstre(pygame.sprite.Sprite):
         text_rect = text.get_rect(center=self.rect.center)  # Obtenir le rectangle du texte centré sur le monstre
         screen.blit(text, text_rect)  # Afficher le texte à l'écran
 
-    def move(self):
 
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    self.direction_y = -1
-                    self.positionY += self.direction_y * 3
-                elif event.key == pygame.K_DOWN:
-                    self.direction_y = 1
-                    self.positionY += self.direction_y * 3
-                elif event.key == pygame.K_LEFT:
-                    self.direction_x = -1
-                    self.positionX += self.direction_x * 5
-                elif event.key == pygame.K_RIGHT:
-                    self.direction_x = 1
-                    self.positionX += self.direction_x * 3
-
-        print("{0},{1}".format(self.positionX, self.positionY))
-
-    # def draw_monstre_map_1(self, screen, pixels):
-    # # si map 1 si map 2
-
-    #     if self.image_monstre is not None:
-    #         screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
-    #         pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
-    #         positions = [(84, 324), (564, 324), (564, 42), (165, 42), (165, -78)]
-    #         target_position = positions[self.current_position_index]
-    #         target_x, target_y = target_position
-
-    #         if self.positionX < target_x:
-    #             self.positionX += self.vitesse
-    #         elif self.positionX > target_x:
-    #             self.positionX -= self.vitesse
-
-    #         if self.positionY < target_y:
-    #             self.positionY += self.vitesse
-    #         elif self.positionY > target_y:
-    #             self.positionY -= self.vitesse
-
-    #         if self.positionX == target_x and self.positionY == target_y:
-    #             self.current_position_index += 1
-    #             if self.current_position_index >= len(positions):
-    #                 # Arrête le monstre après avoir dépassé la dernière position
-    #                 self.current_position_index = len(positions) - 1
-    # ---------------------- TEST ----------------------
     def draw_monstre(self, screen, pixels, current_map):
     # si map 1 si map 2
 

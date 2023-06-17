@@ -210,6 +210,9 @@ class Map:
         self.argent += arme.cout_arme
         self.arme_selectionnee = None
 
+
+
+
     def ameliorer(self):
         image = pygame.image.load(VALIDATION)
         image = pygame.transform.scale(image, (40, 40))
