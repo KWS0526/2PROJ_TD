@@ -24,34 +24,21 @@ class Button:
         return self.image_options
 
     @classmethod
+    #lance la musique
     def option_play_Musique(cls, mes_button, screen, sound):
         # On remplace le bouton par un nouveau
         new_button = cls(620, 200, ICON_PLAY)
-        mes_button["button_SousMenuStopMusique"] = new_button
-        screen.blit(mes_button["button_SousMenuStopMusique"].image, mes_button["button_SousMenuStopMusique"].rect)
+        mes_button["button_Icon_Music"] = new_button
+        screen.blit(mes_button["button_Icon_Music"].image, mes_button["button_Icon_Music"].rect)
         sound.play_sound()
 
-    @classmethod
-    def option_stop_audio(cls, mes_button, screen, sound):
-        # On remet le boutton initial
-        new_button = cls(620, 200, ICON_PAUSE)
-        mes_button["button_SousMenuStopAudio"] = new_button
-        screen.blit(mes_button["button_SousMenuStopAudio"].image, mes_button["button_SousMenuStopAudio"].rect)
-        sound.stop_sound()
-
-    @classmethod
-    def option_play_audio(cls, mes_button, screen):
-        # On remplace le bouton par un nouveau
-        new_button = cls(620, 200, ICON_PLAY)
-        mes_button["button_SousMenuStopAudio"] = new_button
-        screen.blit(mes_button["button_SousMenuStopAudio"].image, mes_button["button_SousMenuStopAudio"].rect)
-
+    # stop la musique
     @classmethod
     def option_stop_Musique(cls, mes_button, screen, sound):
         # On remet le boutton initial
         new_button = cls(620, 200, ICON_PAUSE)
-        mes_button["button_SousMenuStopMusique"] = new_button
-        screen.blit(mes_button["button_SousMenuStopMusique"].image, mes_button["button_SousMenuStopMusique"].rect)
+        mes_button["button_Icon_Stop_Music"] = new_button
+        screen.blit(mes_button["button_Icon_Stop_Music"].image, mes_button["button_Icon_Stop_Music"].rect)
         sound.stop_sound()
 
     @classmethod
@@ -71,14 +58,10 @@ class Button:
     def MenuPrincipal(cls, mes_button, screen, Map):
         # self.screen.blit(self.Fond_Menu, (0, 0))
         # on charge le Menu
-        screen.blit(
-            mes_button["button_Menu"].image, mes_button["button_Menu"].rect)
-        screen.blit(
-            mes_button["button_NewGame"].image, mes_button["button_NewGame"].rect)
-        screen.blit(
-            mes_button["button_Options"].image, mes_button["button_Options"].rect)
-        screen.blit(
-            mes_button["button_Quitt"].image, mes_button["button_Quitt"].rect)
+        screen.blit(mes_button["title_game"].image, mes_button["title_game"].rect)
+        screen.blit(mes_button["button_NewGame"].image, mes_button["button_NewGame"].rect)
+        screen.blit(mes_button["button_Options"].image, mes_button["button_Options"].rect)
+        screen.blit(mes_button["button_Quit"].image, mes_button["button_Quit"].rect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -92,7 +75,7 @@ class Button:
                 elif mes_button["button_Options"].is_clicked(pygame.mouse.get_pos()):
                     # si c'est le bouton options est (clique) on change l'etat du jeu pour quitter fenetre menu pour aller fenetre des options
                     Map.etat = "options"
-                elif mes_button["button_Quitt"].is_clicked(pygame.mouse.get_pos()):
+                elif mes_button["button_Quit"].is_clicked(pygame.mouse.get_pos()):
                     Map.running = False
         pygame.display.flip()
 
@@ -103,9 +86,10 @@ class Button:
         police = pygame.font.Font(None, 30)
         texte_montant = police.render("{}".format(argent), True, (255, 255, 255))
         screen.blit(texte_montant, (self.rect.right - 130, self.rect.top + 40))
+    
     @classmethod
     def ameliorer(cls,Map):
-        image = pygame.image.load(Validation)
+        image = pygame.image.load(VALIDATION)
         image = pygame.transform.scale(image, (40, 40))
         image_rect = image.get_rect(topleft=(910, 365))
         if Map.etat=="jeu_map1":
@@ -124,47 +108,31 @@ class Button:
 
     @classmethod
     def MenuOptions(cls, mes_button, screen, Map, sound):
-        #   On affiche les Boutons du Sous Menues Options
-
-        screen.blit(mes_button["button_SousMenuMusique"].image,mes_button["button_SousMenuMusique"].rect)
-        screen.blit(mes_button["button_SousMenuStopMusique"].image,mes_button["button_SousMenuStopMusique"].rect)
-        # screen.blit(mes_button["button_SousMenuAudio"].image, mes_button["button_SousMenuAudio"].rect)
-        # screen.blit(mes_button["button_SousMenuStopAudio"].image,mes_button["button_SousMenuStopAudio"].rect)
+        # On affiche les Boutons du Sous Menues Options
+        screen.blit(mes_button["button_Icon_Music"].image, mes_button["button_Icon_Music"].rect)
+        screen.blit(mes_button["button_Icon_Stop_Music"].image,mes_button["button_Icon_Stop_Music"].rect)
         screen.blit(mes_button["button_Retour"].image, mes_button["button_Retour"].rect)
-        # On écoute les evenements sur les Bouttons qu'on attribue des etats et chaque etats correspond à un fenetre ou une action.
+
+        # On écoute les événements sur les Boutons et attribue des états
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 Map.running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                # BUTTON RETOUR
                 if mes_button["button_Retour"].is_clicked(pygame.mouse.get_pos()):
                     Map.etat = "menu"
 
-                elif mes_button["button_SousMenuMusique"].is_clicked(pygame.mouse.get_pos()):
-                    # On définit aussi des etats aux niveaux des bouttons du Sous Menue Option
+                # BUTTON STOP MUSIC
+                elif mes_button["button_Icon_Stop_Music"].is_clicked(pygame.mouse.get_pos()):
                     Map.etat_button_options = "musique"
-
                     if Map.etat_button_options == "musique":
-                        Button.option_play_Musique(mes_button, screen, sound)
-
-                elif mes_button["button_SousMenuStopMusique"].is_clicked(pygame.mouse.get_pos()):
-
-                    if Map.etat_button_options == "musique":
-                        Map.etat_button_options = "stop_musique"
-
-                    if Map.etat_button_options == "stop_musique":
                         Button.option_stop_Musique(mes_button, screen, sound)
 
-                # elif mes_button["button_SousMenuAudio"].is_clicked(pygame.mouse.get_pos()):
-                #     Map.etat_button_options = "audio"
-
-                #     if Map.etat_button_options == "audio":
-                #         Button.option_play_audio(mes_button, screen)
-
-                # elif mes_button["button_SousMenuStopAudio"].is_clicked(pygame.mouse.get_pos()):
-                #     if Map.etat_button_options == "audio":
-                #         Map.etat_button_options = "stop_audio"
-
-                #     if Map.etat_button_options == "stop_audio":
-                #         Button.option_stop_audio(mes_button, screen, sound)
+                # BUTTON PLAY MUSIC
+                elif mes_button["button_Icon_Music"].is_clicked(pygame.mouse.get_pos()):
+                    if Map.etat_button_options == "musique":
+                        Map.etat_button_options = "stop_musique"
+                    if Map.etat_button_options == "stop_musique":
+                        Button.option_play_Musique(mes_button, screen, sound)
 
         pygame.display.flip()

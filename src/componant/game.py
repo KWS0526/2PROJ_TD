@@ -46,14 +46,12 @@ class Map:
         self.Fond_Map = pygame.image.load(FOND_MAP)
         # instanciation de mon menu
         self.mes_button = {
-            "button_Menu": Button(500, 100, BUTTON_MENU),
+            "title_game": Button(500, 100, TITLE_GAME),
             "button_NewGame": Button(380, 270, NEW_GAME),
             "button_Options": Button(620, 270, OPTION),
-            "button_Quitt": Button(500, 400, QUIT),
-            "button_SousMenuMusique": Button(400, 200, MUSIQUE_NOTE),
-            "button_SousMenuStopMusique": Button(620, 200, DECLINE),
-            "button_SousMenuAudio": Button(400, 200, MUSIQUE_NOTE),
-            "button_SousMenuStopAudio": Button(620, 200, DECLINE),
+            "button_Quit": Button(500, 400, QUIT),
+            "button_Icon_Music": Button(400, 200, MUSIQUE_NOTE),
+            "button_Icon_Stop_Music": Button(620, 200, DECLINE),
             "button_Retour": Button(520, 360, BACK),
             "coin": Button(780, 475, COIN),
             "kill_game": Button(1010, 480, KILL_GAME)
@@ -74,7 +72,8 @@ class Map:
         self.etat = "menu"
         self.en_pause = "play"
         # instancier musiqueS
-        self.sound = Sound(SONG_ONE)
+        self.musiques = LIST_SONG
+        self.sound = Sound(self.musiques)
         self.vie_joueur = Vie()
         # self.armes = {
         #    "arme_1": Arme(715, 40, "Assets/Armes/arme.png", "arme_1")
@@ -209,7 +208,7 @@ class Map:
         self.arme_selectionnee = None
 
     def ameliorer(self):
-        image = pygame.image.load(Validation)
+        image = pygame.image.load(VALIDATION)
         image = pygame.transform.scale(image, (40, 40))
         image_rect = image.get_rect(topleft=(910, 365))
         # if self.etat=="jeu_map1":
@@ -247,7 +246,7 @@ class Map:
                 message_rect = message.get_rect(center=(self.window_width // 2, self.window_height // 2))
                 self.screen.blit(message, message_rect)
                 victory_rect = message.get_rect()
-                image = pygame.image.load(Continue)
+                image = pygame.image.load(CONTINUE)
                 image = pygame.transform.scale(image, (80, 60))
                 image_quit = pygame.image.load(QUIT)
                 image_quit = pygame.transform.scale(image_quit, (80, 60))
@@ -293,8 +292,7 @@ class Map:
 
                 else:
                     projectile.draw(self.screen)
-                    Monstre.detecter_collision_monstres(self.vagues_de_monstres[self.vague_actuelle], [projectile],
-                                                        self)
+                    Monstre.detecter_collision_monstres(self.vagues_de_monstres[self.vague_actuelle], [projectile],self)
                     projectile.update()
 
             self.mes_button['coin'].afficher_coin(self.screen, self.argent)
