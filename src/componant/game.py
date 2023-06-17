@@ -286,7 +286,7 @@ class Map:
                 positions = (monstre.positionX, monstre.positionY)
 
             for arme in self.mes_armes:
-                Arme.detecter_monstres([arme], positions, 300)
+                Arme.detecter_monstres([arme], positions, 300, self.screen)
                 Monstre.afficher_pieces_gagnees(self.screen)
 
             for projectile in Arme.all_projectiles.copy():

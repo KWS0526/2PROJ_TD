@@ -87,13 +87,15 @@ class Arme:
             screen.blit(self.image, (self.position_x + pixels, self.position_y + pixels))
 
     @classmethod
-    def detecter_monstres(cls, armes, monster_position, champ_vision):
-        distance_min = 200
+    def detecter_monstres(cls, armes, monster_position, champ_vision , screen):
+        distance_min = 150
+        cercle_size = 100
         for arme in armes:
             distance = math.sqrt(
                 (arme.position_x - monster_position[0]) ** 2 + (arme.position_y - monster_position[1]) ** 2)
 
             if distance <= distance_min and distance <= champ_vision:
+                pygame.draw.circle(screen, (255, 255, 255), (arme.position_x,arme.position_y), cercle_size, 1)
                 cls.lancer_projectiles(arme.position_x, arme.position_y, monster_position,arme.type)
 
     @classmethod
