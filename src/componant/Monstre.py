@@ -144,10 +144,11 @@ class Monstre(pygame.sprite.Sprite):
         print("{0},{1}".format(self.positionX, self.positionY))
 
     # def draw_monstre_map_1(self, screen, pixels):
+    # # si map 1 si map 2
+
     #     if self.image_monstre is not None:
     #         screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
     #         pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
-    # # si map 1 si map 2
     #         positions = [(84, 324), (564, 324), (564, 42), (165, 42), (165, -78)]
     #         target_position = positions[self.current_position_index]
     #         target_x, target_y = target_position
@@ -163,14 +164,31 @@ class Monstre(pygame.sprite.Sprite):
     #             self.positionY -= self.vitesse
 
     #         if self.positionX == target_x and self.positionY == target_y:
-    #             self.current_position_index = (self.current_position_index + 1) % len(positions)
+    #             self.current_position_index += 1
+    #             if self.current_position_index >= len(positions):
+    #                 # Arrête le monstre après avoir dépassé la dernière position
+    #                 self.current_position_index = len(positions) - 1
+    # ---------------------- TEST ----------------------
+    def draw_monstre_map_1(self, screen, pixels, current_map):
+    # si map 1 si map 2
 
-    def draw_monstre_map_1(self, screen, pixels):
         if self.image_monstre is not None:
             screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
             pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
+            positions_map1 = [(84, 324), (564, 324), (564, 42), (165, 42), (165, -78)]
+            positions_map2 = [(84, 327),(123, 327),(123, 288),(168, 288),(168, 165),(489, 165),(489, 84),(444, 84),(444, -78)]
+            positions_map3 = [(84, 327),(123, 327),(123, 288),(489, 288),(489, 168),(165, 168),(165, -78)]
 
-            positions = [(84, 324), (564, 324), (564, 42), (165, 42), (165, -78)]
+
+            if current_map == 1:
+                positions = positions_map1
+            elif current_map == 2:
+                positions = positions_map2
+            elif current_map == 3:
+                positions = positions_map3
+            else:
+                raise ValueError("Invalid map number")
+
             target_position = positions[self.current_position_index]
             target_x, target_y = target_position
 
@@ -185,58 +203,64 @@ class Monstre(pygame.sprite.Sprite):
                 self.positionY -= self.vitesse
 
             if self.positionX == target_x and self.positionY == target_y:
-                self.current_position_index = (self.current_position_index + 1) % len(positions)
-
-
+                self.current_position_index += 1
+                if self.current_position_index >= len(positions):
+                    # Arrête le monstre après avoir dépassé la dernière position
+                    self.current_position_index = len(positions) - 1
+            
+ 
     def draw_monstre_map_2(self, screen, pixels):
+    # si map 1 si map 2
+
         if self.image_monstre is not None:
             screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
-            # Dans ces conditions on verifies la position initiale du joueur lors du creation 
-            # de l'objet si cette position respecte les conditions le monstre pourra se deplacer
-            if self.positionY != 327 and self.positionX == 84:
-                self.positionY -= self.vitesse
-            elif self.positionX != 123 and self.positionY == 327:
+            pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
+            positions2 = [(84, 327),(123, 327),(123, 288),(168, 288),(168, 165),(489, 165),(489, 84),(444, 84),(444, -78)]
+            target_position = positions2[self.current_position_index]
+            target_x, target_y = target_position
+
+            if self.positionX < target_x:
                 self.positionX += self.vitesse
-            elif self.positionY != 288 and self.positionX == 123:
-                self.positionY -= self.vitesse
-            elif self.positionX != 168 and self.positionY == 288:
-                self.positionX += self.vitesse
-            elif self.positionY != 165 and self.positionX == 168:
-                self.positionY -= self.vitesse
-            elif self.positionX != 489 and self.positionY == 165:
-                self.positionX += self.vitesse
-            elif self.positionY != 84 and self.positionX == 489:
-                self.positionY -= self.vitesse
-            elif self.positionX != 444 and self.positionY == 84:
+            elif self.positionX > target_x:
                 self.positionX -= self.vitesse
 
-            elif self.positionX == 444 and self.positionY != -78:
+            if self.positionY < target_y:
+                self.positionY += self.vitesse
+            elif self.positionY > target_y:
                 self.positionY -= self.vitesse
 
-                if self.positionX == 444 and self.positionY == -75:
-                    pass
+            if self.positionX == target_x and self.positionY == target_y:
+                self.current_position_index += 1
+                if self.current_position_index >= len(positions2):
+                    # Arrête le monstre après avoir dépassé la dernière position
+                    self.current_position_index = len(positions2) - 1
 
     def draw_monstre_map_3(self, screen, pixels):
-        screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
-        if self.positionY != 327 and self.positionX == 84:
-            self.positionY -= self.vitesse
-        elif self.positionX != 123 and self.positionY == 327:
-            self.positionX += self.vitesse
-        elif self.positionY != 288 and self.positionX == 123:
-            self.positionY -= self.vitesse
-        elif self.positionX != 489 and self.positionY == 288:
-            self.positionX += self.vitesse
-        elif self.positionY != 168 and self.positionX == 489:
-            self.positionY -= self.vitesse
-        elif self.positionX != 165 and self.positionY == 168:
-            self.positionX -= self.vitesse
+    # si map 1 si map 2
 
-        elif self.positionX == 165 and self.positionY != -78:
-            self.positionY -= self.vitesse
+        if self.image_monstre is not None:
+            screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
+            pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
+            positions3 = [(84, 327),(123, 327),(123, 288),(489, 288),(489, 168),(165, 168),(165, -78)]
+            target_position = positions3[self.current_position_index]
+            target_x, target_y = target_position
 
-            if self.positionX == 165 and self.positionY == -75:
-                # self.position_depart()
-                pass
+            if self.positionX < target_x:
+                self.positionX += self.vitesse
+            elif self.positionX > target_x:
+                self.positionX -= self.vitesse
+
+            if self.positionY < target_y:
+                self.positionY += self.vitesse
+            elif self.positionY > target_y:
+                self.positionY -= self.vitesse
+
+            if self.positionX == target_x and self.positionY == target_y:
+                self.current_position_index += 1
+                if self.current_position_index >= len(positions3):
+                    # Arrête le monstre après avoir dépassé la dernière position
+                    self.current_position_index = len(positions3) - 1
+
 
     def update_monstre(self, screen, pixels):
         screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
