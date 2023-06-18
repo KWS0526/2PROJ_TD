@@ -86,9 +86,6 @@ class Map:
             Arme(740, 220, WEAPON_BLUE_LV1, "arme_3")
             # Ajoutez plus d'armes disponibles avec leurs positions
         ]
-        self.upgrade = [
-
-        ]
         self.mes_armes = []
         self.monstre_positions = []
 
@@ -141,7 +138,7 @@ class Map:
         # pygame.display.update()
 
     def verifier_le_click_sur_quel_image(self, world):
-        image = pygame.image.load(Upgrade)
+        image = pygame.image.load(UPGRADE)
         image = pygame.transform.scale(image, (40, 40))
         image_rect = image.get_rect()
 
@@ -223,7 +220,7 @@ class Map:
 
     def ameliorer(self, arme):
        if arme.type == 'arme_1':
-         arme.image=pygame.image.load(Level_2)
+         arme.image=pygame.image.load(WEAPON_RED_LV2)
          arme.resize_image((50,50))
 
     def maps(self, position_x, position_y, condition_x, condition_y, monde, num):

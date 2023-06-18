@@ -1,18 +1,8 @@
-
-# # --------------------------  WINDOWS  --------------------------
-
-
-
-
-
-
-
-
-# --------------------------  MAC OS  --------------------------
 # -------------  SETTINGS  -------------
 
 SIZE = 40
 TD_TITTLE = "Tower Defense"
+
 
 # -------------  ALLS BUTTON  -------------
 
@@ -30,8 +20,6 @@ START = "src/Assets/Buttons/Start.png"
 EXIT = "src/Assets/Buttons/Exit.png"
 VALIDATION = "src/Assets/Buttons/Validation.png"
 CONTINUE ="src/Assets/Buttons/Continue.png"
-Upgrade = "src/Assets/Buttons/Upgrade.png"
-Level_2 = "src/Assets/Weapons/Weapon_red_lv2.png"
 
 # -------------  MUSIC  -------------
 
