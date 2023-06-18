@@ -7,7 +7,7 @@ from src.Assets.const import *
 
 class Projectile(Sprite):
 
-    def __init__(self, start_position_x, start_position_y, target_position, image):
+    def __init__(self, start_position_x, start_position_y, target_position, image,speed=0):
         super().__init__()
         self.start_position_x = start_position_x
         self.start_position_y = start_position_y
@@ -28,10 +28,10 @@ class Projectile(Sprite):
             direction_y = 0
 
         #  la vitesse du projectile
-        speed = 4
+        self.speed = speed
 
-        self.velocity_x = direction_x * speed
-        self.velocity_y = direction_y * speed
+        self.velocity_x = direction_x * self.speed
+        self.velocity_y = direction_y * self.speed
 
     def updates(self, monster_position):
         # Calculer la direction entre le projectile et le monstre

@@ -11,7 +11,8 @@ class Arme:
     last_shot_time = 0
     shot_delay = 0  # Délai en secondes entre chaque lancement de projectile
     arme_en_tir = True
-    projectile_delay = 0.4
+    projectile_delay = 1
+    distance_min =150
 
     def __init__(self, position_x, position_y, image, types):
 
@@ -38,6 +39,7 @@ class Arme:
         self.is_selected = False
         self.selected = False
         self.direction = (0, 0)
+        self.porte=50
 
     def draw_armes(self, window):
         t = 100
@@ -87,7 +89,7 @@ class Arme:
             screen.blit(self.image, (self.position_x + pixels, self.position_y + pixels))
 
     @classmethod
-    def detecter_monstres(cls, armes, monster_position, champ_vision , screen):
+    def detecter_monstres(cls, armes, monster_position, champ_vision ,screen):
         distance_min = 150
         cercle_size = 100
         for arme in armes:
@@ -105,12 +107,15 @@ class Arme:
             projectile_image = None
             if type_arme == "arme_1":
                 projectile_image = pygame.image.load(WEAPON_RED_BULLET).convert_alpha()
+                speed = 4
             elif type_arme == "arme_2":
                 projectile_image = pygame.image.load(WEAPON_GREEN_BULLET).convert_alpha()
+                speed = 6
             elif type_arme == "arme_3":
                 projectile_image = pygame.image.load(WEAPON_BLUE_BULLET).convert_alpha()
+                speed=8
 
-            projectile = Projectile(position_x + 25, position_y - 3, target_position, projectile_image)
+            projectile = Projectile(position_x + 25, position_y - 3, target_position, projectile_image,speed)
             cls.all_projectiles.add(projectile)
             cls.last_shot_time = current_time
 

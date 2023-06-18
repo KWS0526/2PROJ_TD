@@ -31,6 +31,8 @@ class Piece:
 
 class Monstre(pygame.sprite.Sprite):
     pieces_gagnees = []
+    augmentation_vie_effectuee=False
+
     # Abdoulaye
     def __init__(self, positionX, positionY, defense = 0):
         super().__init__()
@@ -56,33 +58,9 @@ class Monstre(pygame.sprite.Sprite):
         self.defense = defense
         self.current_position_index = 0
 
-
-    # Victor
-    # def __init__(self, image_monstre, positionX, positionY, vitesse):
-    #     self.image_monstre = image_monstre
-    #     self.positionX = positionX
-    #     self.positionY = positionY
-    #     self.vitesse = vitesse
-    #     self.rect = self.image_monstre.get_rect()
-    #     self.current_position_index = 0
-
-
-    # Abdoulaye
-    # @classmethod
-    # def detecter_collision_monstres(cls, monstres, projectiles, Map):
-
-    #     for monstre in monstres:
-    #         for projectile in projectiles:
-    #             if monstre.rect.colliderect(projectile.rect):
-    #                 # Collision détectée entre le monstre et le projectile
-    #                 monstre.nbr_vie -= 5
-    #                 projectiles.remove(projectile)  # Supprimer le projectile lorsqu'il touche le monstre
-    #                 if monstre.nbr_vie <= 0:
-    #                     cls.gagner_piece(monstre.positionX, monstre.positionY)  # Gagner une pièce
-    #                     monstres.remove(monstre)
-    #                     Map.argent += 5
     @classmethod
     def detecter_collision_monstres(cls, monstres, projectiles, Map):
+
         for monstre in monstres:
             for projectile in projectiles:
                 if monstre.rect.colliderect(projectile.rect):
@@ -100,10 +78,12 @@ class Monstre(pygame.sprite.Sprite):
                         monstres.remove(monstre)
                         Map.argent += 5
 
-        if len(monstres) == 3:
+        if len(monstres) == 3 and not cls.augmentation_vie_effectuee:
             for monstre in monstres:
                 monstre.nbr_vie += 10
-                monstre.defense+=2
+                monstre.defense+=1
+
+            cls.augmentation_vie_effectuee=True
 
 
     def position_depart(self):
@@ -129,13 +109,12 @@ class Monstre(pygame.sprite.Sprite):
         text_rect = text.get_rect(center=self.rect.center)  # Obtenir le rectangle du texte centré sur le monstre
         screen.blit(text, text_rect)  # Afficher le texte à l'écran
 
-
     def draw_monstre(self, screen, pixels, current_map):
     # si map 1 si map 2
 
         if self.image_monstre is not None:
             screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
-            pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
+            #pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
             positions_map1 = [(84, 324), (564, 324), (564, 42), (165, 42), (165, -78)]
             positions_map2 = [(84, 327),(123, 327),(123, 288),(168, 288),(168, 165),(489, 165),(489, 84),(444, 84),(444, -78)]
             positions_map3 = [(84, 327),(123, 327),(123, 288),(489, 288),(489, 168),(165, 168),(165, -78)]

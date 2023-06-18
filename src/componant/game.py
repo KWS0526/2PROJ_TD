@@ -17,6 +17,7 @@ from src.componant.AfficheurTexte import AfficheurTexte
 from src.componant.word import *
 from src.componant.Wave_monster import Wave_monster
 
+
 class Map:
     def __init__(self):
         # Pour lancer notre application en boucle
@@ -75,7 +76,7 @@ class Map:
         self.musiques = LIST_SONG
         self.sound = Sound(self.musiques)
         self.vie_joueur = Vie()
-        self.map=0
+        self.map = 0
         # self.armes = {
         #    "arme_1": Arme(715, 40, "Assets/Armes/arme.png", "arme_1")
         # }
@@ -86,7 +87,7 @@ class Map:
             # Ajoutez plus d'armes disponibles avec leurs positions
         ]
         self.upgrade = [
-            
+
         ]
         self.mes_armes = []
         self.monstre_positions = []
@@ -100,7 +101,7 @@ class Map:
         position_y = 480  # Ordonnée initiale pour la première vague
 
         for i in range(2):
-            vague = [Monstre(84, position_y + (ecart_y * j), 3) for j in
+            vague = [Monstre(84, position_y + (ecart_y * j), 2) for j in
                      range(5)]  # Coordonnées des monstres de la vague i
             self.vagues_de_monstres.append(vague)
             position_y += ecart_y  # Augmenter l'ordonnée initiale pour la prochaine vague
@@ -140,18 +141,28 @@ class Map:
         # pygame.display.update()
 
     def verifier_le_click_sur_quel_image(self, world):
+        image = pygame.image.load(Upgrade)
+        image = pygame.transform.scale(image, (40, 40))
+        image_rect = image.get_rect()
+
+        # if self.etat=="jeu_map1":
+        self.screen.blit(image, (910, 365))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse = pygame.mouse.get_pos()
+                upgrade_rec = pygame.Rect(image_rect.x + 910, image_rect.y + 365, 40, 40)
                 x, y = pygame.mouse.get_pos()
                 for arme in self.mes_armes:
                     if arme.rect.collidepoint(x, y):
                         # Vend l'arme
                         self.vendre_arme(arme)
-                        self.ameliorer()
                         return
+                    else:
+                        if upgrade_rec.collidepoint(mouse):
+                            self.ameliorer(arme)
 
                 if not self.initial_image_clicked:
                     for arme in self.mes_armess:
@@ -210,30 +221,12 @@ class Map:
         self.argent += arme.cout_arme
         self.arme_selectionnee = None
 
-
-
-
-    def ameliorer(self):
-        image = pygame.image.load(VALIDATION)
-        image = pygame.transform.scale(image, (40, 40))
-        image_rect = image.get_rect(topleft=(910, 365))
-        # if self.etat=="jeu_map1":
-        self.screen.blit(image, (910, 365))
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
-            # On écoute les evenement du Menu
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse = pygame.mouse.get_pos()
-                # Vérifier si les coordonnées du clic sont à l'intérieur du rectangle de l'image
-                if image_rect.collidepoint(mouse):
-                    # L'utilisateur a cliqué sur l'image
-                    print("Image cliquée !")
+    def ameliorer(self, arme):
+        if arme.type == 'arme_1':
+            arme.image=pygame.image.load(Level_2)
+            arme.resize_image((50,50))
 
     def maps(self, position_x, position_y, condition_x, condition_y, monde, num):
-        # for event in pygame.event.get():
-        #   if event.type == pygame.QUIT:
-        #      self.running = False
 
         Carte.draw_map(self.matrix_height, self.matrix_width, self.pixels, monde, self.screen)
 
@@ -243,7 +236,7 @@ class Map:
             self.vagues_de_monstres[self.vague_actuelle])
 
         if declancher_prochaine_vague:
-            if self.vague_actuelle < len(self.vagues_de_monstres) -1:
+            if self.vague_actuelle < len(self.vagues_de_monstres) - 1:
                 self.vague_actuelle += 1
                 Carte.afficher_message_vague(self.vague_actuelle, self.window_width, self.window_height, self.screen)
             else:
@@ -269,7 +262,7 @@ class Map:
                         if restart_button_rect.collidepoint(mouse_pos):
                             self.etat = 'menu'
                         elif kitt_button_rect.collidepoint(mouse_pos):
-                            self.running=False
+                            self.running = False
 
         vie_joueur = self.vie_joueur.vie_joueur
 
@@ -279,6 +272,8 @@ class Map:
                 monstre.draw_monstre(self.screen, self.pixels, self.map)
                 monstre.update_velocite_rect()
                 positions = (monstre.positionX, monstre.positionY)
+                self.verifier_le_click_sur_quel_image(word)
+                self.draw()
 
             for arme in self.mes_armes:
                 Arme.detecter_monstres([arme], positions, 300, self.screen)
@@ -290,7 +285,8 @@ class Map:
 
                 else:
                     projectile.draw(self.screen)
-                    Monstre.detecter_collision_monstres(self.vagues_de_monstres[self.vague_actuelle], [projectile],self)
+                    Monstre.detecter_collision_monstres(self.vagues_de_monstres[self.vague_actuelle], [projectile],
+                                                        self)
                     projectile.update()
 
             self.mes_button['coin'].afficher_coin(self.screen, self.argent)
@@ -322,11 +318,9 @@ class Map:
             elif self.etat == "jeu_map1":
 
                 self.maps(165, -78, 165, -69, word, 1)
-                self.verifier_le_click_sur_quel_image(word)
-                self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
-
                 pygame.display.update()
+
 
             # Map 2
             elif self.etat == "jeu_map2":
@@ -336,6 +330,7 @@ class Map:
                 self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
+
 
             # Map 3
             elif self.etat == "jeu_map3":
