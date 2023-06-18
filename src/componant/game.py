@@ -82,8 +82,8 @@ class Map:
         # }
         self.mes_armess = [
             Arme(740, 40, WEAPON_RED_LV1, "arme_1"),
-            Arme(830, 40, WEAPON_GREEN_LV1, "arme_2"),
-            Arme(740, 130, WEAPON_BLUE_LV1, "arme_3")
+            Arme(740, 130, WEAPON_GREEN_LV1, "arme_2"),
+            Arme(740, 220, WEAPON_BLUE_LV1, "arme_3")
             # Ajoutez plus d'armes disponibles avec leurs positions
         ]
         self.upgrade = [
@@ -146,14 +146,14 @@ class Map:
         image_rect = image.get_rect()
 
         # if self.etat=="jeu_map1":
-        self.screen.blit(image, (910, 365))
+        self.screen.blit(image, (830, 50))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse = pygame.mouse.get_pos()
-                upgrade_rec = pygame.Rect(image_rect.x + 910, image_rect.y + 365, 40, 40)
+                upgrade_rec = pygame.Rect(image_rect.x + 830, image_rect.y + 50, 40, 40)
                 x, y = pygame.mouse.get_pos()
                 for arme in self.mes_armes:
                     if arme.rect.collidepoint(x, y):
