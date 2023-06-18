@@ -11,7 +11,7 @@ class Arme:
     last_shot_time = 0
     shot_delay = 0  # Délai en secondes entre chaque lancement de projectile
     arme_en_tir = True
-    projectile_delay = 0.3
+    projectile_delay = 0.4
     distance_min =150
 
     def __init__(self, position_x, position_y, image, types):

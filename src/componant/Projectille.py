@@ -43,7 +43,7 @@ class Projectile(pygame.sprite.Sprite):
     def detecter_collision_monstres(self, monstres):
         for monstre in monstres:
             if self.rect.colliderect(monstre.rect):
-                degats = 50
+                degats = 1
                 if monstre.defense > 0:
                     # Réduction des dégâts en fonction de la défense du monstre
                     reduction_degats = int(degats * monstre.defense / 100)
@@ -51,6 +51,7 @@ class Projectile(pygame.sprite.Sprite):
 
                 # Inflige des dégâts au monstre et supprime le projectile
                 monstre.nbr_vie -= degats
+                
                 self.kill()
                 print("Projectile touché un monstre")
 

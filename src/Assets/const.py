@@ -95,3 +95,5 @@ BG_SABLE = "src/Assets/Design/sable.jpg"
 IMG_MUR = "src/Assets/Design/wall.jpg"
 IMG_SABLE = "src/Assets/Design/sable.jpg"
 POS_WEAPON = "src/Assets/Design/pos_weapon.png"
+
+NB_VIE = 20
