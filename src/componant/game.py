@@ -100,11 +100,11 @@ class Map:
         ecart_y = 72  # Écart vertical entre chaque vague de monstres
         position_y = 480  # Ordonnée initiale pour la première vague
 
-        for i in range(2):
+        for i in range(10):
             vague = [Monstre(84, position_y + (ecart_y * j), 2) for j in
-                     range(5)]  # Coordonnées des monstres de la vague i
+                     range(10)]  # Coordonnées des monstres de la vague i
             self.vagues_de_monstres.append(vague)
-            position_y += ecart_y  # Augmenter l'ordonnée initiale pour la prochaine vague
+            position_y += ecart_y
 
         # Exemple d'utilisation dans un autre fichier
         # vague_monstres = Wave_monster()
@@ -142,11 +142,13 @@ class Map:
 
     def verifier_le_click_sur_quel_image(self, world):
         image = pygame.image.load(Upgrade)
+        t=100
         image = pygame.transform.scale(image, (40, 40))
         image_rect = image.get_rect()
-
-        # if self.etat=="jeu_map1":
         self.screen.blit(image, (910, 365))
+        police = pygame.font.Font(None, 30)
+        texte_montant = police.render("{}".format(t), True, (255, 255, 255))
+        self.screen.blit(texte_montant, (image_rect.right +872, image_rect.top +420))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -222,9 +224,17 @@ class Map:
         self.arme_selectionnee = None
 
     def ameliorer(self, arme):
-       if arme.type == 'arme_1':
-         arme.image=pygame.image.load(Level_2)
-         arme.resize_image((50,50))
+       if self.argent>=100:
+           if arme.type == 'arme_1':
+             arme.type="arme_1_plus"
+             arme.image=pygame.image.load(Level_2)
+             arme.resize_image((50,50))
+             self.argent-=50
+           elif arme.type=="arme_2":
+             arme.type="arme_2_plus"
+             arme.image=pygame.image.load(WEAPON_GREEN_LV2)
+             arme.resize_image((50,50))
+             self.argent-=50
 
     def maps(self, position_x, position_y, condition_x, condition_y, monde, num):
 
