@@ -1,10 +1,7 @@
 import math
-
 import pygame
 import time
-
 from src.Assets.const import *
-
 from src.componant.MenuMap import MenuGame
 from src.componant.Projectille import Projectile
 from src.componant.Sound import Sound
@@ -15,8 +12,6 @@ from src.componant.Armes import Arme
 from src.componant.Cartes import Carte
 from src.componant.AfficheurTexte import AfficheurTexte
 from src.componant.word import *
-from src.componant.Wave_monster import Wave_monster
-
 
 class Map:
     def __init__(self):
@@ -30,19 +25,16 @@ class Map:
         # Définir la taille de la matrice et des carrés
         self.matrix_width = len(self.word[0])
         self.matrix_height = len(self.word)
-
         # la taille de chaque cellule dans le fenetre qu'on met  en pixels
         self.pixels = SIZE
         # Définir la taille de la fenêtre en fonction de notre matrice
         self.window_width = self.matrix_width * self.pixels
         self.window_height = self.matrix_height * self.pixels
-        self.screen = pygame.display.set_mode(
-            (self.window_width, self.window_height))
+        self.screen = pygame.display.set_mode((self.window_width, self.window_height))
         # charger un image de fond
         self.background = pygame.image.load(BG_SABLE)
         self.background = pygame.transform.scale(self.background, (self.window_width, self.window_height))
         # definir l'image de faire de notre Menu
-
         self.Fond_Menu = pygame.image.load(FOND_MENU)
         self.Fond_Map = pygame.image.load(FOND_MAP)
         # instanciation de mon menu
@@ -54,7 +46,7 @@ class Map:
             "button_Icon_Music": Button(400, 200, MUSIQUE_NOTE),
             "button_Icon_Stop_Music": Button(620, 200, DECLINE),
             "button_Retour": Button(520, 360, BACK),
-            "coin": Button(780, 475, COIN),
+            "coin": Button(800, 425, COIN),
             "kill_game": Button(1010, 480, KILL_GAME)
         }
         self.cartes = {
@@ -72,43 +64,26 @@ class Map:
         self.etat_button_options = "normal"
         self.etat = "menu"
         self.en_pause = "play"
-        # instancier musiqueS
         self.musiques = LIST_SONG
         self.sound = Sound(self.musiques)
         self.vie_joueur = Vie()
         self.map = 0
-        # self.armes = {
-        #    "arme_1": Arme(715, 40, "Assets/Armes/arme.png", "arme_1")
-        # }
         self.mes_armess = [
-            Arme(740, 40, WEAPON_RED_LV1, "arme_1"),
-            Arme(830, 40, WEAPON_GREEN_LV1, "arme_2"),
-            Arme(740, 130, WEAPON_BLUE_LV1, "arme_3")
+            Arme(695, 40, WEAPON_RED_LV1, "arme_1"),
+            Arme(785, 40, WEAPON_GREEN_LV1, "arme_2"),
+            Arme(875, 40, WEAPON_BLUE_LV1, "arme_3")
             # Ajoutez plus d'armes disponibles avec leurs positions
-        ]
-        self.upgrade = [
-
         ]
         self.mes_armes = []
         self.monstre_positions = []
-
-        # self.vagues_de_monstres = [
-        #   [Monstre(84, 480), Monstre(84, 552), Monstre(84, 624)],
-        #  [Monstre(84, 480), Monstre(84, 552), Monstre(84, 624)]
-        # ]
         self.vagues_de_monstres = []
         ecart_y = 72  # Écart vertical entre chaque vague de monstres
         position_y = 480  # Ordonnée initiale pour la première vague
 
         for i in range(10):
-            vague = [Monstre(84, position_y + (ecart_y * j), 2) for j in
-                     range(10)]  # Coordonnées des monstres de la vague i
+            vague = [Monstre(84, position_y + (ecart_y * j), 0) for j in range(10)]  # Coordonnées des monstres de la vague i
             self.vagues_de_monstres.append(vague)
             position_y += ecart_y
-
-        # Exemple d'utilisation dans un autre fichier
-        # vague_monstres = Wave_monster()
-        # vague_monstres.generer_vagues(ecart_y=10, nb_vagues=2, nb_monstres_par_vague=5, position_y_initiale=0)
 
         self.monstres_vague_actuelle = 0
         self.vague_actuelle = 0
@@ -138,24 +113,24 @@ class Map:
         for tower in self.towers:
             tower.draw_armess(self.placing_tower, self.screen)
 
-        # pygame.display.update()
-
     def verifier_le_click_sur_quel_image(self, world):
         image = pygame.image.load(Upgrade)
         t=100
         image = pygame.transform.scale(image, (40, 40))
         image_rect = image.get_rect()
-        self.screen.blit(image, (910, 365))
+        self.screen.blit(image, (895, 400))
         police = pygame.font.Font(None, 30)
         texte_montant = police.render("{}".format(t), True, (255, 255, 255))
-        self.screen.blit(texte_montant, (image_rect.right +872, image_rect.top +420))
+        self.screen.blit(texte_montant, (image_rect.right +860, image_rect.top +450))
+        
         for event in pygame.event.get():
+            
             if event.type == pygame.QUIT:
                 self.running = False
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse = pygame.mouse.get_pos()
-                upgrade_rec = pygame.Rect(image_rect.x + 910, image_rect.y + 365, 40, 40)
+                upgrade_rec = pygame.Rect(image_rect.x + 895, image_rect.y + 400, 40, 40)
                 x, y = pygame.mouse.get_pos()
                 for arme in self.mes_armes:
                     if arme.rect.collidepoint(x, y):
@@ -168,7 +143,6 @@ class Map:
 
                 if not self.initial_image_clicked:
                     for arme in self.mes_armess:
-
                         if arme.is_clicked_armes((x, y)):
                             arme.cliquer(self)
                             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_CROSSHAIR)
@@ -181,33 +155,26 @@ class Map:
                     if self.argent >= self.prix_arme_definie:
                         row = y // self.pixels
                         col = x // self.pixels
-
                         armes = None
-                        if world[row][col] == 3:
 
+                        if world[row][col] == 3:
                             for arme in self.mes_armes:
                                 if arme.rect.collidepoint(x, y):
-
                                     if arme == self.towers[-1]:
                                         self.arme_selectionnee = arme
-
                                     break
 
                             if self.type_arme == "arme_1":
                                 armes = Arme(x, y, WEAPON_RED_LV1, "arme_1")
-
                             elif self.type_arme == "arme_2":
                                 armes = Arme(x, y, WEAPON_GREEN_LV1, "arme_2")
-
                             elif self.type_arme == "arme_3":
                                 armes = Arme(x, y, WEAPON_BLUE_LV1, "arme_3")
                             else:
-
                                 return
 
                         if armes is not None:
                             self.towers.append(armes)
-
                             self.mes_armes.append(self.towers[-1])
                             self.towers[-1].resize_image((40, 40))
                             self.towers[-1].acheter(self)
@@ -225,16 +192,21 @@ class Map:
 
     def ameliorer(self, arme):
        if self.argent>=100:
-           if arme.type == 'arme_1':
-             arme.type="arme_1_plus"
-             arme.image=pygame.image.load(Level_2)
-             arme.resize_image((50,50))
-             self.argent-=50
-           elif arme.type=="arme_2":
-             arme.type="arme_2_plus"
-             arme.image=pygame.image.load(WEAPON_GREEN_LV2)
-             arme.resize_image((50,50))
-             self.argent-=50
+            if arme.type == 'arme_1':
+                arme.type="arme_1_plus"
+                arme.image=pygame.image.load(WEAPON_RED_LV2)
+                arme.resize_image((50,50))
+                self.argent-=50
+            elif arme.type=="arme_2":
+                arme.type="arme_2_plus"
+                arme.image=pygame.image.load(WEAPON_GREEN_LV2)
+                arme.resize_image((50,50))
+                self.argent-=50
+            elif arme.type=="arme_3":
+                arme.type="arme_3_plus"
+                arme.image=pygame.image.load(WEAPON_BLUE_LV2)
+                arme.resize_image((50,50))
+                self.argent-=50
 
     def maps(self, position_x, position_y, condition_x, condition_y, monde, num):
 
@@ -261,7 +233,9 @@ class Map:
                 image_quit = pygame.transform.scale(image_quit, (80, 60))
                 self.screen.blit(image, (victory_rect.x + 450, victory_rect.y + 290))
                 self.screen.blit(image_quit, (victory_rect.x + 450, victory_rect.y + 355))
+
                 for event in pygame.event.get():
+
                     if event.type == pygame.QUIT:
                         self.running = False
                     elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -293,8 +267,7 @@ class Map:
 
                 else:
                     projectile.draw(self.screen)
-                    Monstre.detecter_collision_monstres(self.vagues_de_monstres[self.vague_actuelle], [projectile],
-                                                        self)
+                    Monstre.detecter_collision_monstres(self.vagues_de_monstres[self.vague_actuelle], [projectile],self)
                     projectile.update()
 
             self.mes_button['coin'].afficher_coin(self.screen, self.argent)
@@ -311,10 +284,8 @@ class Map:
                 # on charge notre menu
                 self.screen.blit(self.Fond_Menu, (0, 0))
                 Button.MenuPrincipal(self.mes_button, self.screen, self)
-                # Button.MenuGame(self.mes_button, self.screen, self)
 
             elif self.etat == "map":
-                # self.MenuMap()
                 self.menu_map_screen.MenuMap()
 
             elif self.etat == "options":
@@ -330,7 +301,6 @@ class Map:
                 self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
 
-
             # Map 2
             elif self.etat == "jeu_map2":
                 self.maps(444, -78, 444, -69, word_2, 2)
@@ -338,7 +308,6 @@ class Map:
                 self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
-
 
             # Map 3
             elif self.etat == "jeu_map3":
@@ -349,5 +318,4 @@ class Map:
                 pygame.display.update()
 
         pygame.display.flip()
-
         pygame.quit()

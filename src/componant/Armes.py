@@ -11,7 +11,7 @@ class Arme:
     last_shot_time = 0
     shot_delay = 0  # Délai en secondes entre chaque lancement de projectile
     arme_en_tir = True
-    projectile_delay = 1
+    projectile_delay = 0.3
     distance_min =150
 
     def __init__(self, position_x, position_y, image, types):
@@ -131,10 +131,10 @@ class Arme:
                 projectile_image = pygame.image.load(WEAPON_BLUE_BULLET).convert_alpha()
                 speed=8
             elif type_arme == "arme_1_plus":
-                projectile_image = pygame.image.load(FIRE_BALL).convert_alpha()
+                projectile_image = pygame.image.load(WEAPON_RED_BULLET).convert_alpha()
                 speed = 6
             elif type_arme =="arme_2_plus":
-                projectile_image = pygame.image.load(EXPLOSION).convert_alpha()
+                projectile_image = pygame.image.load(WEAPON_GREEN_BULLET).convert_alpha()
                 speed = 7
             elif type_arme == "arme_3_plus":
                  projectile_image = pygame.image.load(WEAPON_BLUE_BULLET).convert_alpha()

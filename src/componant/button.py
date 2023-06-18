@@ -85,7 +85,7 @@ class Button:
         screen.blit(self.image, self.rect)
         police = pygame.font.Font(None, 30)
         texte_montant = police.render("{}".format(argent), True, (255, 255, 255))
-        screen.blit(texte_montant, (self.rect.right - 130, self.rect.top + 40))
+        screen.blit(texte_montant, (self.rect.right - 185, self.rect.top + 70))
     
     @classmethod
     def ameliorer(cls,Map):

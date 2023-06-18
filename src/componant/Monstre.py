@@ -93,25 +93,24 @@ class Monstre(pygame.sprite.Sprite):
             for projectile in projectiles:
                 if monstre.rect.colliderect(projectile.rect):
                     # Collision détectée entre le monstre et le projectile
-                    degats = 5
                     if monstre.defense > 0:
                         degats -= monstre.defense
                         degats = max(0, degats)
 
                     if monstre.type == "type_1":
                         degats = 10
-                        monstre.defense=2
-                        monstre.nbr_vie=20
+                        monstre.defense=1
+                        monstre.nbr_vie=5
                         monstre.degat=10
                     if monstre.type == "type_2":
                         degats = 10
-                        monstre.nbr_vie=30
+                        monstre.nbr_vie=5
                         monstre.degat=10
                     if monstre.type == "type_4":
                         degats = 30
-                        monstre.nbr_vie=20
+                        monstre.nbr_vie=5
                     if monstre.type == "type_5":
-                        degats = 1
+                        degats = 50
                         monstre.nbr_vie=5
                         monstre.degat=1
                     if monstre.type == "type_6":
@@ -120,12 +119,12 @@ class Monstre(pygame.sprite.Sprite):
                         monstre.nbr_vie=5
                         monstre.degat=15
                     if monstre.type == "type_7":
-                        degats = 1
-                        monstre.defense=3
-                        monstre.nbr_vie=50
+                        degats = 50
+                        monstre.defense=0
+                        monstre.nbr_vie=5
                         monstre.degat=1
                     if monstre.type == "type_8":
-                        degats = 1
+                        degats = 50
                         monstre.nbr_vie=1
                         monstre.degat=1
 
@@ -142,10 +141,6 @@ class Monstre(pygame.sprite.Sprite):
                 monstre.nbr_vie += 5
 
             cls.augmentation_vie_effectuee = True
-
-    def position_depart(self):
-        self.positionX = 84
-        self.positionY = 480
 
     def update_bar_de_vie(self, surface):
         bar_color = (231, 52, 14)
@@ -176,8 +171,7 @@ class Monstre(pygame.sprite.Sprite):
         if self.image_monstre is not None:
             screen.blit(self.image_monstre, (self.positionX + pixels, self.positionY + pixels))
             positions_map1 = [(84, 324), (564, 324), (564, 42), (165, 42), (165, -78)]
-            positions_map2 = [(84, 327), (123, 327), (123, 288), (168, 288), (168, 165), (489, 165), (489, 84),
-                              (444, 84), (444, -78)]
+            positions_map2 = [(84, 327), (123, 327), (123, 288), (168, 288), (168, 165), (489, 165), (489, 84),(444, 84), (444, -78)]
             positions_map3 = [(84, 327), (123, 327), (123, 288), (489, 288), (489, 168), (165, 168), (165, -78)]
 
             if current_map == 1:

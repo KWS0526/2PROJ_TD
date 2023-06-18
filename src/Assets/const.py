@@ -1,14 +1,3 @@
-
-# # --------------------------  WINDOWS  --------------------------
-
-
-
-
-
-
-
-
-# --------------------------  MAC OS  --------------------------
 # -------------  SETTINGS  -------------
 
 SIZE = 40
@@ -31,7 +20,6 @@ EXIT = "src/Assets/Buttons/Exit.png"
 VALIDATION = "src/Assets/Buttons/Validation.png"
 CONTINUE ="src/Assets/Buttons/Continue.png"
 Upgrade = "src/Assets/Buttons/Upgrade.png"
-Level_2 = "src/Assets/Weapons/Weapon_red_lv2.png"
 
 # -------------  MUSIC  -------------
 
