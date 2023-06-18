@@ -93,6 +93,7 @@ class Monstre(pygame.sprite.Sprite):
             for projectile in projectiles:
                 if monstre.rect.colliderect(projectile.rect):
                     # Collision détectée entre le monstre et le projectile
+                    degats = 5
                     if monstre.defense > 0:
                         degats -= monstre.defense
                         degats = max(0, degats)
