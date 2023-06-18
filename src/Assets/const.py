@@ -35,7 +35,6 @@ LIST_SONG = ["src/Assets/Musique/son1.mp3","src/Assets/Musique/son2.mp3",
 MONSTER_1 = "src/Assets/Monsters/Fire_Monster.png"
 MONSTER_2 = "src/Assets/Monsters/Fox_monster.png"
 MONSTER_3 = "src/Assets/Monsters/Paslma_monster.png"
-MONSTER_4 = "src/Assets/Monsters/Phanthom_monster.png"
 MONSTER_5 = "src/Assets/Monsters/Plant_monster.png"
 MONSTER_6 = "src/Assets/Monsters/Soleil_monster.png"
 MONSTER_7 = "src/Assets/Monsters/Turtle_monster.png"

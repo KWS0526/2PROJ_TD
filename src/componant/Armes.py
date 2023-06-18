@@ -16,12 +16,9 @@ class Arme:
 
     def __init__(self, position_x, position_y, image, types):
 
-        # self.rotated_rect = self.image
-        # self.position_tir_x = None
-        # self.position_tir_y = None
         self.type = types
         self.image = pygame.image.load(image)
-        self.image = pygame.transform.scale(self.image, (70, 80)).convert()
+        self.image = pygame.transform.scale(self.image, (72, 80)).convert()
         self.position_x = position_x
         self.position_y = position_y
         self.rect = self.image.get_rect(center=(position_x, position_y))
@@ -42,13 +39,32 @@ class Arme:
         self.porte=50
 
     def draw_armes(self, window):
-        t = 100
-        window.blit(self.image, (self.position_x, self.position_y))
-        if self.cadenas_visible:
-            window.blit(self.cadenas_image, (self.position_x, self.position_y))
-            # police = pygame.font.Font(None, 30)
-            # texte_montant = police.render("{}".format(t), True, (255, 255, 255))
-            # window.blit(texte_montant, (self.rect.right - 130, self.rect.top + 40))
+        if self.type=="arme_1":
+            t=50
+            window.blit(self.image, (self.position_x, self.position_y))
+            if self.cadenas_visible:
+                window.blit(self.cadenas_image, (self.position_x, self.position_y))
+                police = pygame.font.Font(None, 30)
+                texte_montant = police.render("{}".format(t), True, (255, 255, 255))
+                window.blit(texte_montant, (self.rect.right +10, self.rect.top + 40))
+        if self.type=="arme_2":
+            t=80
+            window.blit(self.image, (self.position_x, self.position_y))
+            if self.cadenas_visible:
+                window.blit(self.cadenas_image, (self.position_x, self.position_y))
+                police = pygame.font.Font(None, 30)
+                texte_montant = police.render("{}".format(t), True, (255, 255, 255))
+                window.blit(texte_montant, (self.rect.right +10, self.rect.top + 40))
+        if self.type=="arme_3":
+            t=120
+            window.blit(self.image, (self.position_x, self.position_y))
+            if self.cadenas_visible:
+                window.blit(self.cadenas_image, (self.position_x, self.position_y))
+                police = pygame.font.Font(None, 30)
+                texte_montant = police.render("{}".format(t), True, (255, 255, 255))
+                window.blit(texte_montant, (self.rect.right +10, self.rect.top + 40))
+
+
 
     def draw_armess(self, is_placed, window):
         if is_placed:  # Vérifier si l'arme est placée
@@ -114,6 +130,15 @@ class Arme:
             elif type_arme == "arme_3":
                 projectile_image = pygame.image.load(WEAPON_BLUE_BULLET).convert_alpha()
                 speed=8
+            elif type_arme == "arme_1_plus":
+                projectile_image = pygame.image.load(FIRE_BALL).convert_alpha()
+                speed = 6
+            elif type_arme =="arme_2_plus":
+                projectile_image = pygame.image.load(EXPLOSION).convert_alpha()
+                speed = 7
+            elif type_arme == "arme_3_plus":
+                 projectile_image = pygame.image.load(WEAPON_BLUE_BULLET).convert_alpha()
+                 speed=10
 
             projectile = Projectile(position_x + 25, position_y - 3, target_position, projectile_image,speed)
             cls.all_projectiles.add(projectile)
