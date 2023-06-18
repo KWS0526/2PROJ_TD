@@ -222,9 +222,9 @@ class Map:
         self.arme_selectionnee = None
 
     def ameliorer(self, arme):
-        if arme.type == 'arme_1':
-            arme.image=pygame.image.load(Level_2)
-            arme.resize_image((50,50))
+       if arme.type == 'arme_1':
+         arme.image=pygame.image.load(Level_2)
+         arme.resize_image((50,50))
 
     def maps(self, position_x, position_y, condition_x, condition_y, monde, num):
 
@@ -272,8 +272,6 @@ class Map:
                 monstre.draw_monstre(self.screen, self.pixels, self.map)
                 monstre.update_velocite_rect()
                 positions = (monstre.positionX, monstre.positionY)
-                self.verifier_le_click_sur_quel_image(word)
-                self.draw()
 
             for arme in self.mes_armes:
                 Arme.detecter_monstres([arme], positions, 300, self.screen)
@@ -316,8 +314,9 @@ class Map:
 
             # Map 1
             elif self.etat == "jeu_map1":
-
                 self.maps(165, -78, 165, -69, word, 1)
+                self.verifier_le_click_sur_quel_image(word)
+                self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
 
@@ -326,7 +325,6 @@ class Map:
             elif self.etat == "jeu_map2":
                 self.maps(444, -78, 444, -69, word_2, 2)
                 self.verifier_le_click_sur_quel_image(word_2)
-                # Button.MenuGame(self.mes_button, self.screen, self)
                 self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
@@ -336,7 +334,6 @@ class Map:
             elif self.etat == "jeu_map3":
                 self.maps(165, -78, 165, -69, word_3, 3)
                 self.verifier_le_click_sur_quel_image(word_3)
-                # Button.MenuGame(self.mes_button, self.screen, self)
                 self.draw()
                 self.vie_joueur.afficher_vie_joueur(self.screen)
                 pygame.display.update()
