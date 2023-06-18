@@ -93,42 +93,11 @@ class Monstre(pygame.sprite.Sprite):
             for projectile in projectiles:
                 if monstre.rect.colliderect(projectile.rect):
                     # Collision détectée entre le monstre et le projectile
-                    degats = 20
+                    degats = 1.5
                     if monstre.defense > 0:
                         reduction_degats = int(degats * monstre.defense / 100)
                         degats -= reduction_degats
                     monstre.nbr_vie -= degats
-
-                    if monstre.type == "type_1":
-                        monstre.nbr_vie = NB_VIE
-                        monstre.defence = 0.5
-                        monstre.degat = 10
-
-                    if monstre.type == "type_2":
-                        monstre.nbr_vie = NB_VIE
-                        monstre.defence = 0.5
-                        monstre.degat = 10
-
-                    if monstre.type == "type_4":
-                        monstre.nbr_vie = NB_VIE
-                        monstre.defence = 0.5
-                        monstre.degat = 10
-
-                    if monstre.type == "type_5":
-                        monstre.nbr_vie = NB_VIE
-                        monstre.degat = 10
-
-                    if monstre.type == "type_6":
-                        monstre.nbr_vie = NB_VIE
-                        monstre.degat = 10
-
-                    if monstre.type == "type_7":
-                        monstre.nbr_vie = NB_VIE
-                        monstre.degat = 10
-
-                    if monstre.type == "type_8":
-                        monstre.nbr_vie = NB_VIE
-                        monstre.degat = 10
 
                     monstre.nbr_vie -= degats
                     projectiles.remove(projectile)  # Supprimer le projectile lorsqu'il touche le monstre
@@ -141,6 +110,7 @@ class Monstre(pygame.sprite.Sprite):
         if len(monstres) == 3 and not cls.augmentation_vie_effectuee:
             for monstre in monstres:
                 monstre.nbr_vie += 5
+                monstre.defense =1
 
             cls.augmentation_vie_effectuee = True
 

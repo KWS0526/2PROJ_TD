@@ -81,7 +81,7 @@ class Map:
         position_y = 480  # Ordonnée initiale pour la première vague
 
         for i in range(10):
-            vague = [Monstre(84, position_y + (ecart_y * j), 0) for j in range(10)]  # Coordonnées des monstres de la vague i
+            vague = [Monstre(84, position_y + (ecart_y * j), 1) for j in range(10)]  # Coordonnées des monstres de la vague i
             self.vagues_de_monstres.append(vague)
             position_y += ecart_y
 
