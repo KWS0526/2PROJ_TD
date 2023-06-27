@@ -92,7 +92,7 @@ CARTE_3 = "src/Assets/Cartes/map_3.png"
 
 # MAPS ASSETS
 BG_SABLE = "src/Assets/Design/sable.jpg"
-IMG_MUR = "src/Assets/Design/wall.jpg"
+IMG_MUR = "src/Assets/Design/wals.png"
 IMG_SABLE = "src/Assets/Design/sable.jpg"
 POS_WEAPON = "src/Assets/Design/pos_weapon.png"
 
