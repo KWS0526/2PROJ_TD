@@ -20,6 +20,7 @@ EXIT = "src/Assets/Buttons/Exit.png"
 VALIDATION = "src/Assets/Buttons/Validation.png"
 CONTINUE ="src/Assets/Buttons/Continue.png"
 Upgrade = "src/Assets/Buttons/Upgrade.png"
+musique1 = "src/Assets/Musique/son1.mp3"
 
 # -------------  MUSIC  -------------
 

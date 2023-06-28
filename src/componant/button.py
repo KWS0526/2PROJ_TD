@@ -132,7 +132,8 @@ class Button:
                 elif mes_button["button_Icon_Music"].is_clicked(pygame.mouse.get_pos()):
                     if Map.etat_button_options == "musique":
                         Map.etat_button_options = "stop_musique"
+
                     if Map.etat_button_options == "stop_musique":
-                        Button.option_play_Musique(mes_button, screen, sound)
+                        Button.option_stop_Musique(mes_button, screen, sound)
 
         pygame.display.flip()
